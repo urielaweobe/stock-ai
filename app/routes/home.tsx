@@ -1,6 +1,6 @@
 import type { Route } from './+types/home';
 import { fetchStockData, fetchTickerList } from '~/api/ticker';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Popover,
   PopoverContent,
@@ -20,6 +20,8 @@ import { cn } from '~/lib/utils';
 import { Mistral } from '@mistralai/mistralai';
 import LoadingDots from './components/LoadingDots';
 import type { LoaderDataProps } from '~/utils/interface';
+import { useFetcher, type ActionFunctionArgs } from 'react-router';
+import { chat } from '~/utils/agent';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -30,6 +32,32 @@ export function meta({}: Route.MetaArgs) {
     },
   ];
 }
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const ticker = formData.get('ticker');
+
+  if (typeof ticker !== 'string') {
+    return Response.json({ error: 'Invalid ticker' }, { status: 400 });
+  }
+
+  const mistralClient = new Mistral({
+    apiKey: process.env.VITE_MISTRAL_API,
+  });
+
+  try {
+    const response = await fetchStockData(ticker);
+    const data = await response.text();
+
+    const report = (await chat(data));
+
+    return Response.json({ report });
+  } catch (error) {
+    console.error(error);
+    return Response.json({ error: 'Failed to generate report' }, { status: 500 });
+  }
+}
+
 
 export const loader = async () => {
   const response = await fetchTickerList();
@@ -43,40 +71,16 @@ export const loader = async () => {
 };
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const mistralClient = new Mistral({
-    apiKey: import.meta.env.VITE_MISTRAL_API,
-  });
   const stockData = loaderData as LoaderDataProps;
+  const fetcher = useFetcher();
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [streamedReport, setStreamedReport] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  async function fetchReport(data: string) {
-    setLoading(true);
-    setStreamedReport('');
-
-    const response = await mistralClient.chat.complete({
-      model: 'open-mistral-7b',
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are a trading guru. Given data on share prices over the past 3 days, write a report of no more than 150 words describing the stocks performance and recommending whether to buy, hold or sell.',
-        },
-        {
-          role: 'user',
-          content: data,
-        },
-      ],
-    });
-
-    setLoading(false);
-
-    if (response.choices && response.choices[0].message.content) {
-      const fullText = response.choices[0].message.content as string;
-
+  useEffect(() => {
+    if (fetcher.data?.report) {
+      const fullText = fetcher.data.report as string;
       let i = 0;
       const streamText = () => {
         if (i <= fullText.length) {
@@ -85,28 +89,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           setTimeout(streamText, 10);
         }
       };
-
       streamText();
     }
-  }
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetchStockData(value);
-      const data = await response.text();
-      fetchReport(data);
-
-      return data;
-    } catch (error) {
-      console.error('Error fetching stock data:', error);
-    }
-  };
+  }, [fetcher.data]);
 
   return (
     <div className="mx-auto flex w-[450px] flex-col">
-      <form onSubmit={handleSubmit}>
+      <fetcher.Form method="post">
+      <input type="hidden" name="ticker" value={value} />
         <div className="mt-40 flex h-full items-center justify-center space-x-2">
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -141,7 +131,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                         key={index}
                         value={ticker.ticker}
                         onSelect={(currentValue) => {
-                          setValue(currentValue === value ? '' : currentValue);
+                          setValue(currentValue);
                           setOpen(false);
                         }}
                       >
@@ -165,10 +155,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             <Send />
           </Button>
         </div>
-      </form>
+      </fetcher.Form>
       <div>
         <div className="mt-6 rounded-md border border-slate-200 p-4">
-          {loading ? (
+          {fetcher.state === 'submitting' ? (
             <LoadingDots />
           ) : (
             <p className="text-base whitespace-pre-wrap dark:text-gray-200">
@@ -182,7 +172,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               variant="ghost"
               size="sm"
               className="cursor-pointer dark:text-gray-200"
-              onClick={handleSubmit}
+              onClick={() => {
+                fetcher.submit({ ticker: value }, { method: 'post' })
+              }}
             >
               <RotateCcw />
               Retry
