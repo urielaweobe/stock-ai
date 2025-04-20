@@ -1,0 +1,1460 @@
+[
+  {
+    "Code": "ABBEYBDS",
+    "Name": "ABBEY MORTGAGE BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGABBEY00001"
+  },
+  {
+    "Code": "ABCTRANS",
+    "Name": "ABC TRANSPORT PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGABCTRANS01"
+  },
+  {
+    "Code": "ACADEMY",
+    "Name": "ACADEMY PRESS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGACADEMY008"
+  },
+  {
+    "Code": "ACCESSCORP",
+    "Name": "ACCESS HOLDINGS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGACCESS0005"
+  },
+  {
+    "Code": "AFRINSURE",
+    "Name": "AFRICAN ALLIANCE INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGAFRINSURE4"
+  },
+  {
+    "Code": "AFRIPRUD",
+    "Name": "AFRICA PRUDENTIAL PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGAFRIPRUD04"
+  },
+  {
+    "Code": "AFROMEDIA",
+    "Name": "AFROMEDIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGAFROMEDIA7"
+  },
+  {
+    "Code": "AIICO",
+    "Name": "AIICO INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGAIICO00006"
+  },
+  {
+    "Code": "AIRTELAFRI",
+    "Name": "AIRTEL AFRICA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "GB00BKDRYJ47"
+  },
+  {
+    "Code": "ALEX",
+    "Name": "ALUMINIUM EXTRUSION IND. PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGALEX000003"
+  },
+  {
+    "Code": "ARADEL",
+    "Name": "ARADEL HOLDINGS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGARADEL0004"
+  },
+  {
+    "Code": "ASOSAVINGS",
+    "Name": "ASO SAVINGS AND LOANS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGASOSAVING3"
+  },
+  {
+    "Code": "AUSTINLAZ",
+    "Name": "AUSTIN LAZ & COMPANY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGAUSTINLAZ9"
+  },
+  {
+    "Code": "AVAIF",
+    "Name": "AVA INFRASTRUCTURE FUND",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGAVAIF00001"
+  },
+  {
+    "Code": "BAPLC",
+    "Name": "BRICLINKS AFRICA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGBAPLC00002"
+  },
+  {
+    "Code": "BERGER",
+    "Name": "BERGER PAINTS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGBERGER0000"
+  },
+  {
+    "Code": "BETAGLAS",
+    "Name": "BETA GLASS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGBETAGLAS04"
+  },
+  {
+    "Code": "BUACEMENT",
+    "Name": "BUA CEMENT PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCCNN000003"
+  },
+  {
+    "Code": "BUAFOODS",
+    "Name": "BUA FOODS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGBUAFOODS04"
+  },
+  {
+    "Code": "CADBURY",
+    "Name": "CADBURY NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCADBURY001"
+  },
+  {
+    "Code": "CAP",
+    "Name": "CAP PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCAP0000009"
+  },
+  {
+    "Code": "CAPOIL",
+    "Name": "CAPITAL OIL PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCAPOIL0007"
+  },
+  {
+    "Code": "CAVERTON",
+    "Name": "CAVERTON OFFSHORE SUPPORT GRP PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCAVERTON07"
+  },
+  {
+    "Code": "CHAMPION",
+    "Name": "CHAMPION BREWERIES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCHAMPION00"
+  },
+  {
+    "Code": "CHAMS",
+    "Name": "CHAMS HOLDING COMPANY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCHAMS00001"
+  },
+  {
+    "Code": "CHELLARAM",
+    "Name": "CHELLARAMS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCHELLARAM5"
+  },
+  {
+    "Code": "CILEASING",
+    "Name": "C & I LEASING PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCILEASING2"
+  },
+  {
+    "Code": "CONHALLPLC",
+    "Name": "CONSOLIDATED HALLMARK INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGHMARKINS04"
+  },
+  {
+    "Code": "CONOIL",
+    "Name": "CONOIL PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCONOIL0003"
+  },
+  {
+    "Code": "CORNERST",
+    "Name": "CORNERSTONE INSURANCE CO. PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCORNERST03"
+  },
+  {
+    "Code": "CUSTODIAN",
+    "Name": "CUSTODIAN INVESTMENT PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCUSTODYIN6"
+  },
+  {
+    "Code": "CUTIX",
+    "Name": "CUTIX PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCUTIX00002"
+  },
+  {
+    "Code": "CWG",
+    "Name": "CWG PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCWG0000002"
+  },
+  {
+    "Code": "DAARCOMM",
+    "Name": "DAAR COMMUNICATIONS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGDAARCOMM01"
+  },
+  {
+    "Code": "DANGCEM",
+    "Name": "DANGOTE CEMENT PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGDANGCEM008"
+  },
+  {
+    "Code": "DANGSUGAR",
+    "Name": "DANGOTE SUGAR REFINERY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGDANSUGAR02"
+  },
+  {
+    "Code": "DEAPCAP",
+    "Name": "DEAP CAPITAL MANAGEMENT AND TRUST PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGDEAPCAP009"
+  },
+  {
+    "Code": "DUNLOP",
+    "Name": "DN TYRE & RUBBER PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGDUNLOP0005"
+  },
+  {
+    "Code": "EKOCORP",
+    "Name": "EKOCORP PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGECOCORP009"
+  },
+  {
+    "Code": "ELLAHLAKES",
+    "Name": "ELLAH LAKES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGELLAHLAKE8"
+  },
+  {
+    "Code": "ENAMELWA",
+    "Name": "NIGERIA ENAMELWARE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGENAMELWA03"
+  },
+  {
+    "Code": "ETERNA",
+    "Name": "ETERNA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGETERNAOIL1"
+  },
+  {
+    "Code": "ETI",
+    "Name": "ECOBANK TRANSNATIONAL INCORPORATED",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "TG0000000132"
+  },
+  {
+    "Code": "ETRANZACT",
+    "Name": "E-TRANZACT INTERNATIONAL PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGETRANZ0005"
+  },
+  {
+    "Code": "EUNISELL",
+    "Name": "EUNISELL INTERLINKED PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGINTERLINK3"
+  },
+  {
+    "Code": "FCMB",
+    "Name": "FCMB GROUP PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGFCMB000005"
+  },
+  {
+    "Code": "FIDELITYBK",
+    "Name": "FIDELITY BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGFIDELITYB5"
+  },
+  {
+    "Code": "FIDSON",
+    "Name": "FIDSON HEALTHCARE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGFIDSON0006"
+  },
+  {
+    "Code": "FIRSTHOLDCO",
+    "Name": "FIRST HOLDCO PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGFBNH000009"
+  },
+  {
+    "Code": "FTNCOCOA",
+    "Name": "FTN COCOA PROCESSORS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGFTNCOCOA02"
+  },
+  {
+    "Code": "GEREGU",
+    "Name": "GEREGU POWER PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGGEREGU0000"
+  },
+  {
+    "Code": "GOLDBREW",
+    "Name": "GOLDEN GUINEA BREWERIES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGGOLDBREW01"
+  },
+  {
+    "Code": "GOLDINSURE",
+    "Name": "GOLDLINK INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGGOLDINSUR8"
+  },
+  {
+    "Code": "GREENWETF",
+    "Name": "GREENWICH ASSET ETF",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGGREENWETF2"
+  },
+  {
+    "Code": "GTCO",
+    "Name": "GUARANTY TRUST HOLDING COMPANY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGGTCO000002"
+  },
+  {
+    "Code": "GUINEAINS",
+    "Name": "GUINEA INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGGUINEAINS0"
+  },
+  {
+    "Code": "GUINNESS",
+    "Name": "GUINNESS NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGGUINNESS07"
+  },
+  {
+    "Code": "HMCALL",
+    "Name": "HALDANE MCCALL PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGHMCALL0004"
+  },
+  {
+    "Code": "HONYFLOUR",
+    "Name": "HONEYWELL FLOUR MILL PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGHONYFLOUR7"
+  },
+  {
+    "Code": "IKEJAHOTEL",
+    "Name": "IKEJA HOTELS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGIKEJAHOTL7"
+  },
+  {
+    "Code": "IMG",
+    "Name": "INDUSTRIAL & MEDICAL GASES NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGBOCGAS0008"
+  },
+  {
+    "Code": "INFINITY",
+    "Name": "INFINITY TRUST MORTGAGE BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGINFINITY01"
+  },
+  {
+    "Code": "INTBREW",
+    "Name": "INTERNATIONAL BREWERIES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGINTBREW005"
+  },
+  {
+    "Code": "INTENEGINS",
+    "Name": "INTERNATIONAL ENERGY INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGINTENEGIN5"
+  },
+  {
+    "Code": "JAIZBANK",
+    "Name": "JAIZ BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGJAIZBANK05"
+  },
+  {
+    "Code": "JAPAULGOLD",
+    "Name": "JAPAUL OIL & MARITIME SERVICES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGJAPAULOIL4"
+  },
+  {
+    "Code": "JBERGER",
+    "Name": "JULIUS BERGER NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGJBERGER009"
+  },
+  {
+    "Code": "JOHNHOLT",
+    "Name": "JOHN HOLT PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGJOHNHOLT05"
+  },
+  {
+    "Code": "JULI",
+    "Name": "JULI PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGJULI000003"
+  },
+  {
+    "Code": "LASACO",
+    "Name": "LASACO ASSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGLASACO0002"
+  },
+  {
+    "Code": "LEARNAFRCA",
+    "Name": "LEARN AFRICA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGLONGMAN007"
+  },
+  {
+    "Code": "LINKASSURE",
+    "Name": "LINKAGE ASSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGLINKASSUR7"
+  },
+  {
+    "Code": "LIVESTOCK",
+    "Name": "LIVESTOCK FEEDS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGLIVESTOCK5"
+  },
+  {
+    "Code": "LIVINGTRUST",
+    "Name": "LIVINGTRUST MORTGAGE BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGOMOMORBNK6"
+  },
+  {
+    "Code": "LOTUSHAL15",
+    "Name": "LOTUS HALAL EQUITY ETF",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGLOTUSHAL13"
+  },
+  {
+    "Code": "MANSARD",
+    "Name": "AXAMANSARD INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NG000000GTA1"
+  },
+  {
+    "Code": "MAYBAKER",
+    "Name": "MAY & BAKER NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMAYBAKER01"
+  },
+  {
+    "Code": "MBENEFIT",
+    "Name": "MUTUAL BENEFITS ASSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMBENEFT000"
+  },
+  {
+    "Code": "MCNICHOLS",
+    "Name": "MCNICHOLS NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMCNICHOLS7"
+  },
+  {
+    "Code": "MECURE",
+    "Name": "MECURE INDUSTRIES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMECURE0006"
+  },
+  {
+    "Code": "MEDVIEWAIR",
+    "Name": "MEDVIEW AIRLINE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMEDVIEW007"
+  },
+  {
+    "Code": "MERGROWTH",
+    "Name": "MERISTEM GROWTH EXCHANGE TRADED FUND",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMERGROWTH1"
+  },
+  {
+    "Code": "MERVALUE",
+    "Name": "MERISTEM VALUE EXCHANGE TRADED FUND",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMERVALUE06"
+  },
+  {
+    "Code": "MEYER",
+    "Name": "MEYER PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGDNMEYER001"
+  },
+  {
+    "Code": "MORISON",
+    "Name": "MORISON INDUSTRIES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMORISON000"
+  },
+  {
+    "Code": "MRS",
+    "Name": "MRS OIL NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCHEVRON008"
+  },
+  {
+    "Code": "MTNN",
+    "Name": "MTN NIGERIA COMMUNICATIONS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMTNN000002"
+  },
+  {
+    "Code": "MULTITREX",
+    "Name": "MULTI-TREX INTEGRATED FOODS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMULTITREX0"
+  },
+  {
+    "Code": "MULTIVERSE",
+    "Name": "MULTIVERSE MINING AND EXPLORATION PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGMULTIVERS6"
+  },
+  {
+    "Code": "NAHCO",
+    "Name": "NIGERIAN AVIATION HANDLING CO. PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNAHCO00008"
+  },
+  {
+    "Code": "NASCON",
+    "Name": "NASCON ALLIED INDUSTRIES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNASCON0005"
+  },
+  {
+    "Code": "NB",
+    "Name": "NIGERIAN BREWERIES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNB00000005"
+  },
+  {
+    "Code": "NCR",
+    "Name": "NCR (NIGERIA) PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NG000000NCR8"
+  },
+  {
+    "Code": "NEIMETH",
+    "Name": "NEIMETH INTERNATIONAL PHARMACEUTICAL PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNEIMETH001"
+  },
+  {
+    "Code": "NEM",
+    "Name": "NEM INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNEM0000005"
+  },
+  {
+    "Code": "NESTLE",
+    "Name": "NESTLE NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNESTLE0006"
+  },
+  {
+    "Code": "NEWGOLD",
+    "Name": "NEWGOLD EXCHANGE TRADED FUND",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "ZAE000060067"
+  },
+  {
+    "Code": "NGXGROUP",
+    "Name": "NIGERIAN EXCHANGE GROUP PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNGXGROUP09"
+  },
+  {
+    "Code": "NIDF",
+    "Name": "CHAPEL HILL DENHAM NIG. INFRAS DEBT FUND",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGCHDNIDF005"
+  },
+  {
+    "Code": "NNFM",
+    "Name": "NORTHERN NIGERIA FLOUR MILLS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNNFM000008"
+  },
+  {
+    "Code": "NOTORE",
+    "Name": "NOTORE CHEMICAL IND PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNOTORE0002"
+  },
+  {
+    "Code": "NPFMCRFBK",
+    "Name": "NPF MICRO FINANCE BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNPFMCRFBK0"
+  },
+  {
+    "Code": "NSLTECH",
+    "Name": "SECURE ELECTRONIC TECHNOLOGY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGNSLTECH006"
+  },
+  {
+    "Code": "OANDO",
+    "Name": "OANDO PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGOANDO00002"
+  },
+  {
+    "Code": "OKOMUOIL",
+    "Name": "OKOMU OIL PALM PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGOKOMUOIL00"
+  },
+  {
+    "Code": "OMATEK",
+    "Name": "OMATEK VENTURES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGOMATEX0001"
+  },
+  {
+    "Code": "PHARMDEKO",
+    "Name": "PHARMA-DEKO PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGPHARMDEKO7"
+  },
+  {
+    "Code": "PREMPAINTS",
+    "Name": "PREMIER PAINTS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGPREMPAINT2"
+  },
+  {
+    "Code": "PRESCO",
+    "Name": "PRESCO PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGPRESCO0005"
+  },
+  {
+    "Code": "PRESTIGE",
+    "Name": "PRESTIGE ASSURANCE CO. PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGPRESTIGE00"
+  },
+  {
+    "Code": "PZ",
+    "Name": "P Z CUSSONS NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGPZ00000005"
+  },
+  {
+    "Code": "REDSTAREX",
+    "Name": "RED STAR EXPRESS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGREDSTAREX9"
+  },
+  {
+    "Code": "REGALINS",
+    "Name": "REGENCY ASSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGREGALINS04"
+  },
+  {
+    "Code": "RONCHESS",
+    "Name": "RONCHESS GLOBAL RESOURCES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGRONCHESS06"
+  },
+  {
+    "Code": "ROYALEX",
+    "Name": "ROYAL EXCHANGE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGROYALEX007"
+  },
+  {
+    "Code": "RTBRISCOE",
+    "Name": "R T BRISCOE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGRTBRISCOE9"
+  },
+  {
+    "Code": "SCOA",
+    "Name": "SCOA NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSCOA000009"
+  },
+  {
+    "Code": "SEPLAT",
+    "Name": "SEPLAT ENERGY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSEPLAT0008"
+  },
+  {
+    "Code": "SFSREIT",
+    "Name": "SFS REAL ESTATE INVESTMENT TRUST",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSKYESHELT8"
+  },
+  {
+    "Code": "SIAMLETF40",
+    "Name": "SIAML PENSION ETF 40",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGSIAMLETF46"
+  },
+  {
+    "Code": "SKYAVN",
+    "Name": "SKYWAY AVIATION HANDLING COMPANY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSKYAVN0003"
+  },
+  {
+    "Code": "SMURFIT",
+    "Name": "SMART PRODUCTS NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSMURFIT002"
+  },
+  {
+    "Code": "SOVRENINS",
+    "Name": "SOVEREIGN TRUST INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSOVRENINS5"
+  },
+  {
+    "Code": "STACO",
+    "Name": "STACO INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSTACO00002"
+  },
+  {
+    "Code": "STANBIC",
+    "Name": "STANBIC IBTC HOLDINGS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSTANBIC003"
+  },
+  {
+    "Code": "STANBICETF30",
+    "Name": "STANBIC IBTC ETF 30",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGSTBKETF308"
+  },
+  {
+    "Code": "STDINSURE",
+    "Name": "STANDARD ALLIANCE INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NG000000STD1"
+  },
+  {
+    "Code": "STERLINGNG",
+    "Name": "STERLING FINANCIAL HOLDINGS COMPANY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSTERLNBNK7"
+  },
+  {
+    "Code": "SUNUASSUR",
+    "Name": "SUNU ASSURANCES NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGEQUITYASS2"
+  },
+  {
+    "Code": "TANTALIZER",
+    "Name": "TANTALIZERS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGTANTALIZE1"
+  },
+  {
+    "Code": "THOMASWY",
+    "Name": "THOMAS WYATT NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGTHOMASWY07"
+  },
+  {
+    "Code": "TIP",
+    "Name": "THE INITIATES PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGINITSPLC05"
+  },
+  {
+    "Code": "TOTAL",
+    "Name": "TOTALENERGIES MARKETING NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGTOTAL00001"
+  },
+  {
+    "Code": "TRANSCOHOT",
+    "Name": "TRANSCORP HOTELS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGTRANSHOTL1"
+  },
+  {
+    "Code": "TRANSCORP",
+    "Name": "TRANSNATIONAL CORPORATION OF NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGTRANSCORP7"
+  },
+  {
+    "Code": "TRANSEXPR",
+    "Name": "TRANS-NATIONWIDE EXPRESS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGTRANSEXPR4"
+  },
+  {
+    "Code": "TRANSPOWER",
+    "Name": "TRANSCORP POWER PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGTRANSPOWE3"
+  },
+  {
+    "Code": "TRIPPLEG",
+    "Name": "TRIPPLE GEE AND COMPANY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGTRIPPLEG04"
+  },
+  {
+    "Code": "UACN",
+    "Name": "UAC OF NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUACN000006"
+  },
+  {
+    "Code": "UBA",
+    "Name": "UNITED BANK FOR AFRICA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUBA0000001"
+  },
+  {
+    "Code": "UCAP",
+    "Name": "UNITED CAPITAL PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUBCAP00003"
+  },
+  {
+    "Code": "UHOMREIT",
+    "Name": "UNION HOMES REAL ESTATE INVESTMENT TRUST PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUHOMREIT06"
+  },
+  {
+    "Code": "UNILEVER",
+    "Name": "UNILEVER NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUNILEVER07"
+  },
+  {
+    "Code": "UNIONDICON",
+    "Name": "UNION DICON SALT PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUNIONDICO1"
+  },
+  {
+    "Code": "UNITYBNK",
+    "Name": "UNITY BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUNITYBANK3"
+  },
+  {
+    "Code": "UNIVINSURE",
+    "Name": "UNIVERSAL INSURANCE COMPANY PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUNIVINSUR9"
+  },
+  {
+    "Code": "UPDC",
+    "Name": "UPDC PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUACPROP006"
+  },
+  {
+    "Code": "UPDCREIT",
+    "Name": "UPDC REAL ESTATE INVESTMENT TRUST",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUPDCREIT01"
+  },
+  {
+    "Code": "UPL",
+    "Name": "UNIVERSITY PRESS PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUPL0000008"
+  },
+  {
+    "Code": "VANLEER",
+    "Name": "GREIF NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGVANLEER005"
+  },
+  {
+    "Code": "VERITASKAP",
+    "Name": "VERITAS KAPITAL ASSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGUNITYKAP04"
+  },
+  {
+    "Code": "VETBANK",
+    "Name": "VETIVA BANKING ETF",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGVETBANK009"
+  },
+  {
+    "Code": "VETGOODS",
+    "Name": "VETIVA CONSUMER GOODS ETF",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGVETGOODS08"
+  },
+  {
+    "Code": "VETGRIF30",
+    "Name": "VETIVA GRIFFIN 30 ETF",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGVETGRIF309"
+  },
+  {
+    "Code": "VETINDETF",
+    "Name": "VETIVA INDUSTRIAL ETF",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGVETINDETF8"
+  },
+  {
+    "Code": "VFDGROUP",
+    "Name": "VFD GROUP",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSDVFDGROU4"
+  },
+  {
+    "Code": "VITAFOAM",
+    "Name": "VITAFOAM NIGERIA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGVITAFOAM00"
+  },
+  {
+    "Code": "VSPBONDETF",
+    "Name": "VETIVA S & P NIGERIA SOVEREIGN BOND ETF",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "ETF",
+    "Isin": "NGVSPBNDETF1"
+  },
+  {
+    "Code": "WAPCO",
+    "Name": "LAFARGE AFRICA PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGWAPCO00002"
+  },
+  {
+    "Code": "WAPIC",
+    "Name": "CORONATION INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGWAPIC00004"
+  },
+  {
+    "Code": "WEMABANK",
+    "Name": "WEMA BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGWEMABANK07"
+  },
+  {
+    "Code": "ZENITHBANK",
+    "Name": "ZENITH BANK PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGZENITHBNK9"
+  }
+]
