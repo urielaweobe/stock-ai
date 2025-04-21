@@ -1,17 +1,11 @@
 import { Mistral } from "@mistralai/mistralai";
+import type { FinancialData } from "./interface";
 
 const mistralClient = new Mistral({
   apiKey: import.meta.env.VITE_MISTRAL_API,
 });
 
-interface X {
-  data: string;
-  code: string;
-  ticker: string;
-  currency: string;
-}
-
-export const chat = async ({ data, code, ticker, currency }: X) =>
+export const chat = async ({ data, code, ticker, currency }: FinancialData) =>
   await mistralClient.chat.complete({
     model: "open-mistral-7b",
     messages: [
@@ -22,7 +16,7 @@ export const chat = async ({ data, code, ticker, currency }: X) =>
       },
       {
         role: "user",
-        content: `data: ${data}, ticker: ${code}, name: ${ticker}, currency: ${currency}`,
+        content: `data: ${data}, ticker code: ${code}, ticker: ${ticker}, currency: ${currency}`,
       },
     ],
   });

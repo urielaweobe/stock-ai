@@ -1,38 +1,16 @@
 import { dates } from "~/utils/dates";
 
-export const fetchTickerList = async () =>
-  await fetch(
-    `${
-      import.meta.env.VITE_POLYGON_BASE_API
-    }/v3/reference/tickers?market=stocks&active=true&order=asc&limit=1000&sort=locale&locale=global&apiKey=${
-      import.meta.env.VITE_POLYGON_API
-    }`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+// Note to self: The EOD API is not free. You need to sign up for an account and get an API key.
+// The free tier allows you to make 20 requests per day. You can upgrade to a paid plan for more requests.
+// The API key is stored in the .env file as VITE_EOD_API. You can use this key to make requests to the API.
+// I previously used the POLYGON API, but it does not have Nigerian stocks listed on it.
 
-export const fetchStockData = async (ticker: string) =>
-  await fetch(
-    `${
-      import.meta.env.VITE_POLYGON_BASE_API
-    }/v2/aggs/ticker/${ticker}/range/1/day/${dates.startDate}/${
-      dates.endDate
-    }?apiKey=${import.meta.env.VITE_POLYGON_API}`,
-    {
-      method: "GET",
-    }
-  );
-
-interface Ticker {
+interface FetchTickerData {
   code: string;
   exchange: string;
 }
 
-export const fetchTickerData = async ({ code, exchange }: Ticker) =>
+export const fetchTickerData = async ({ code, exchange }: FetchTickerData) =>
   await fetch(
     `https://eodhd.com/api/eod/${code}.${exchange}?from=2025-04-01&to=2025-04-17&period=d&api_token=${
       import.meta.env.VITE_EOD_API

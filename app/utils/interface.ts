@@ -10,3 +10,17 @@ export interface LoaderDataProps {
   ];
   status: string;
 }
+
+export interface Ticker {
+  Name: string;
+  Code: string;
+  Exchange: string;
+  Currency: string;
+}
+
+export interface FinancialData {
+  data: string;
+  code: string;
+  ticker: string;
+  currency: string;
+}

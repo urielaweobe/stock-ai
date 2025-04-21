@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { fetchStockData, fetchTickerData, fetchTickerList } from "~/api/ticker";
+import { fetchTickerData } from "~/api/ticker";
 import { useEffect, useState } from "react";
 import {
   Popover,
@@ -17,19 +17,18 @@ import {
   CommandList,
 } from "~/components/ui/command";
 import { cn } from "~/lib/utils";
-import { Mistral } from "@mistralai/mistralai";
 import LoadingDots from "./components/LoadingDots";
-import type { LoaderDataProps } from "~/utils/interface";
 import { useFetcher, type ActionFunctionArgs } from "react-router";
 import { chat } from "~/utils/agent";
-import stock from "~/utils/stock-data.json";
+import stockData from "~/utils/stock-data.json";
+import type { Ticker } from "~/utils/interface";
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Stock AI" },
     {
       name: "description",
-      content: "Learn about the perfomance of the stock you want to buy next!",
+      content: "Learn about the performance of the stock you want to buy next!",
     },
   ];
 }
@@ -69,30 +68,13 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 }
 
-interface Ticker {
-  Code: string;
-  Exchange: string;
-  Currency: string;
-}
-
-export const loader = async () => {
-  // const response = await fetchTickerList();
-  // if (!response.ok) {
-  //   throw new Response("Failed to fetch ticker list", {
-  //     status: response.status,
-  //   });
-  // }
-  // const data = await response.json();
-  // return Response.json(data);
-};
-
-export default function Home({ loaderData }: Route.ComponentProps) {
-  // const stockData = loaderData as LoaderDataProps;
+export default function Home() {
   const fetcher = useFetcher();
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
   const [streamedReport, setStreamedReport] = useState("");
+  const [selectedTicker, setSelectedTicker] = useState<Ticker | undefined>();
+  const [streamFinished, setStreamFinished] = useState(false);
 
   useEffect(() => {
     if (fetcher.data?.report) {
@@ -102,6 +84,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         if (i <= fullText.length) {
           setStreamedReport(fullText.slice(0, i));
           i++;
+          if (i === fullText.length) {
+            setStreamFinished(true);
+          }
           setTimeout(streamText, 10);
         }
       };
@@ -109,15 +94,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     }
   }, [fetcher.data]);
 
-  const [x, setX] = useState<Ticker>();
-
   return (
     <div className="mx-auto flex w-[450px] flex-col">
       <fetcher.Form method="post">
-        <input type="hidden" name="code" value={x?.Code} />
-        <input type="hidden" name="exchange" value={x?.Exchange} />
-        <input type="hidden" name="ticker" value={value} />
-        <input type="hidden" name="currency" value={x?.Currency} />
+        <input type="hidden" name="code" value={selectedTicker?.Code} />
+        <input type="hidden" name="exchange" value={selectedTicker?.Exchange} />
+        <input type="hidden" name="ticker" value={selectedTicker?.Name} />
+        <input type="hidden" name="currency" value={selectedTicker?.Currency} />
         <div className="mt-40 flex h-full items-center justify-center space-x-2">
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -127,12 +110,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                 aria-expanded={open}
                 className="w-[400px] justify-between"
                 name="ticker"
-                value={value}
+                value={selectedTicker?.Name}
               >
-                {value ? (
+                {selectedTicker?.Name ? (
                   <span className="block max-w-[300px] truncate">
-                    {stock.find((ticker: any) => ticker.Name === value)?.Name ||
-                      ""}
+                    {stockData.find(
+                      (ticker: any) => ticker.Name === selectedTicker?.Name
+                    )?.Name || ""}
                   </span>
                 ) : (
                   "Select stock..."
@@ -146,13 +130,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                 <CommandList>
                   <CommandEmpty>No stock found.</CommandEmpty>
                   <CommandGroup>
-                    {stock.map((ticker: any, index: any) => (
+                    {stockData.map((ticker: any, index: any) => (
                       <CommandItem
                         key={index}
                         value={ticker.Name}
-                        onSelect={(currentValue) => {
-                          setX(ticker);
-                          setValue(currentValue);
+                        onSelect={() => {
+                          setSelectedTicker(ticker);
                           setOpen(false);
                         }}
                       >
@@ -160,7 +143,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                         <Check
                           className={cn(
                             "ml-auto",
-                            value === ticker.Name ? "opacity-100" : "opacity-0"
+                            selectedTicker?.Name === ticker.Name
+                              ? "opacity-100"
+                              : "opacity-0"
                           )}
                         />
                       </CommandItem>
@@ -185,14 +170,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </p>
           )}
         </div>
-        {!!streamedReport && (
+        {streamFinished && (
           <div className="mt-2 flex justify-end">
             <Button
               variant="ghost"
               size="sm"
               className="cursor-pointer dark:text-gray-200"
               onClick={() => {
-                fetcher.submit({ ticker: value }, { method: "post" });
+                fetcher.submit(
+                  { ticker: selectedTicker?.Name || "" },
+                  { method: "post" }
+                );
               }}
             >
               <RotateCcw />
