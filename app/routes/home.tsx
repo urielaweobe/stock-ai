@@ -18,10 +18,17 @@ import {
 } from "~/components/ui/command";
 import { cn } from "~/lib/utils";
 import LoadingDots from "./components/LoadingDots";
-import { useFetcher, type ActionFunctionArgs } from "react-router";
+import {
+  useActionData,
+  useFetcher,
+  type ActionFunctionArgs,
+} from "react-router";
 import { chat } from "~/utils/agent";
 import stockData from "~/utils/stock-data.json";
 import type { Ticker } from "~/utils/interface";
+import { DatePickerWithRange } from "~/components/ui/date-picker";
+import type { DateRange } from "react-day-picker";
+import { subDays } from "date-fns";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -39,6 +46,8 @@ export async function action({ request }: ActionFunctionArgs) {
   const exchange = formData.get("exchange") as string;
   const ticker = formData.get("ticker") as string;
   const currency = formData.get("currency") as string;
+  const startDate = formData.get("startDate") as string;
+  const endDate = formData.get("endDate") as string;
 
   if (typeof code !== "string") {
     return Response.json({ error: "Invalid ticker" }, { status: 400 });
@@ -48,17 +57,22 @@ export async function action({ request }: ActionFunctionArgs) {
     const response = await fetchTickerData({
       code,
       exchange,
+      startDate: startDate.slice(0, 10),
+      endDate: endDate.slice(0, 10),
     });
     const data = await response.json();
+    console.log(data);
 
     const report = await chat({
       data: JSON.stringify(data),
       code,
       ticker,
       currency,
+      startDate: startDate.slice(0, 10),
+      endDate: endDate.slice(0, 10),
     });
 
-    return Response.json({ report });
+    return { report };
   } catch (error) {
     console.error(error);
     return Response.json(
@@ -75,6 +89,10 @@ export default function Home() {
   const [streamedReport, setStreamedReport] = useState("");
   const [selectedTicker, setSelectedTicker] = useState<Ticker | undefined>();
   const [streamFinished, setStreamFinished] = useState(false);
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: subDays(new Date(), 3),
+    to: new Date(),
+  });
 
   useEffect(() => {
     if (fetcher.data?.report) {
@@ -91,29 +109,47 @@ export default function Home() {
         }
       };
       streamText();
+    } else if (fetcher.data?.error) {
+      setStreamedReport(fetcher.data.error);
+      setStreamFinished(true);
     }
   }, [fetcher.data]);
 
   return (
-    <div className="mx-auto flex w-[450px] flex-col">
+    <div className="mx-auto flex w-[650px] flex-col">
       <fetcher.Form method="post">
         <input type="hidden" name="code" value={selectedTicker?.Code} />
         <input type="hidden" name="exchange" value={selectedTicker?.Exchange} />
         <input type="hidden" name="ticker" value={selectedTicker?.Name} />
         <input type="hidden" name="currency" value={selectedTicker?.Currency} />
+        <input
+          type="hidden"
+          name="startDate"
+          value={date?.from ? date.from.toISOString() : ""}
+        />
+        <input
+          type="hidden"
+          name="endDate"
+          value={date?.to ? date.to.toISOString() : ""}
+        />
         <div className="mt-40 flex h-full items-center justify-center space-x-2">
+          <DatePickerWithRange
+            date={date}
+            setDate={setDate}
+            className="w-[300px] cursor-pointer"
+          />
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="w-[400px] justify-between"
+                className="w-[300px] justify-between"
                 name="ticker"
                 value={selectedTicker?.Name}
               >
                 {selectedTicker?.Name ? (
-                  <span className="block max-w-[300px] truncate">
+                  <span className="block max-w-[200px] truncate">
                     {stockData.find(
                       (ticker: any) => ticker.Name === selectedTicker?.Name
                     )?.Name || ""}
@@ -124,7 +160,7 @@ export default function Home() {
                 <ChevronsUpDown className="opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[400px] p-0">
+            <PopoverContent className="w-[300px] p-0">
               <Command>
                 <CommandInput placeholder="Search stock..." className="h-9" />
                 <CommandList>
@@ -160,7 +196,7 @@ export default function Home() {
           </Button>
         </div>
       </fetcher.Form>
-      <div>
+      <div className="">
         <div className="mt-6 rounded-md border border-slate-200 p-4">
           {fetcher.state === "submitting" ? (
             <LoadingDots />
@@ -178,7 +214,14 @@ export default function Home() {
               className="cursor-pointer dark:text-gray-200"
               onClick={() => {
                 fetcher.submit(
-                  { ticker: selectedTicker?.Name || "" },
+                  {
+                    ticker: selectedTicker?.Name || "",
+                    code: selectedTicker?.Code || "",
+                    exchange: selectedTicker?.Exchange || "",
+                    currency: selectedTicker?.Currency || "",
+                    startDate: date?.from?.toISOString() || "",
+                    endDate: date?.to?.toISOString() || "",
+                  },
                   { method: "post" }
                 );
               }}

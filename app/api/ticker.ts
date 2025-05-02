@@ -8,11 +8,13 @@ import { dates } from "~/utils/dates";
 interface FetchTickerData {
   code: string;
   exchange: string;
+  startDate: string;
+  endDate: string;
 }
 
-export const fetchTickerData = async ({ code, exchange }: FetchTickerData) =>
+export const fetchTickerData = async ({ code, exchange, startDate, endDate }: FetchTickerData) =>
   await fetch(
-    `https://eodhd.com/api/eod/${code}.${exchange}?from=2025-04-01&to=2025-04-17&period=d&api_token=${
+    `https://eodhd.com/api/eod/${code}.${exchange}?from=${startDate}&to=${endDate}&period=d&api_token=${
       import.meta.env.VITE_EOD_API
     }&fmt=json`,
     {

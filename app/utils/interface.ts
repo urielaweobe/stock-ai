@@ -23,4 +23,6 @@ export interface FinancialData {
   code: string;
   ticker: string;
   currency: string;
+  startDate: string;
+  endDate: string;
 }
