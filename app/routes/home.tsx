@@ -119,11 +119,11 @@ export default function Home() {
   const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
   return (
-    <>
+    <div className="h-screen">
       <div className="flex justify-end pt-3 pr-6">
         <ThemeSwitcher theme={theme} setTheme={setTheme} />
       </div>
-      <div className="mx-auto flex w-[650px] flex-col h-screen">
+      <div className="mx-auto flex w-[650px] flex-col">
         <fetcher.Form method="post">
           <input type="hidden" name="code" value={selectedTicker?.Code} />
           <input
@@ -254,6 +254,6 @@ export default function Home() {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
