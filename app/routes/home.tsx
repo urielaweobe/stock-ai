@@ -29,6 +29,8 @@ import type { Ticker } from "~/utils/interface";
 import { DatePickerWithRange } from "~/components/ui/date-picker";
 import type { DateRange } from "react-day-picker";
 import { subDays } from "date-fns";
+import { ThemeSwitcher } from "~/components/theme-toggle";
+import { getStoredTheme, type Theme } from "~/utils/theme";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -114,124 +116,144 @@ export default function Home() {
       setStreamFinished(true);
     }
   }, [fetcher.data]);
+  const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
   return (
-    <div className="mx-auto flex w-[650px] flex-col">
-      <fetcher.Form method="post">
-        <input type="hidden" name="code" value={selectedTicker?.Code} />
-        <input type="hidden" name="exchange" value={selectedTicker?.Exchange} />
-        <input type="hidden" name="ticker" value={selectedTicker?.Name} />
-        <input type="hidden" name="currency" value={selectedTicker?.Currency} />
-        <input
-          type="hidden"
-          name="startDate"
-          value={date?.from ? date.from.toISOString() : ""}
-        />
-        <input
-          type="hidden"
-          name="endDate"
-          value={date?.to ? date.to.toISOString() : ""}
-        />
-        <div className="mt-40 flex h-full items-center justify-center space-x-2">
-          <DatePickerWithRange
-            date={date}
-            setDate={setDate}
-            className="w-[300px] cursor-pointer"
+    <>
+      <div className="flex justify-end pt-3 pr-6">
+        <ThemeSwitcher theme={theme} setTheme={setTheme} />
+      </div>
+      <div className="mx-auto flex w-[650px] flex-col h-screen">
+        <fetcher.Form method="post">
+          <input type="hidden" name="code" value={selectedTicker?.Code} />
+          <input
+            type="hidden"
+            name="exchange"
+            value={selectedTicker?.Exchange}
           />
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                className="w-[300px] justify-between"
-                name="ticker"
-                value={selectedTicker?.Name}
-              >
-                {selectedTicker?.Name ? (
-                  <span className="block max-w-[200px] truncate">
-                    {stockData.find(
-                      (ticker: any) => ticker.Name === selectedTicker?.Name
-                    )?.Name || ""}
-                  </span>
-                ) : (
-                  "Select stock..."
-                )}
-                <ChevronsUpDown className="opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[300px] p-0">
-              <Command>
-                <CommandInput placeholder="Search stock..." className="h-9" />
-                <CommandList>
-                  <CommandEmpty>No stock found.</CommandEmpty>
-                  <CommandGroup>
-                    {stockData.map((ticker: any, index: any) => (
-                      <CommandItem
-                        key={index}
-                        value={ticker.Name}
-                        onSelect={() => {
-                          setSelectedTicker(ticker);
-                          setOpen(false);
-                        }}
-                      >
-                        {ticker.Name}
-                        <Check
-                          className={cn(
-                            "ml-auto",
-                            selectedTicker?.Name === ticker.Name
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
-          <Button type="submit" variant="outline" size="icon">
-            <Send />
-          </Button>
-        </div>
-      </fetcher.Form>
-      <div className="">
-        <div className="mt-6 rounded-md border border-slate-200 p-4">
-          {fetcher.state === "submitting" ? (
-            <LoadingDots />
-          ) : (
-            <p className="text-base whitespace-pre-wrap dark:text-gray-200">
-              {streamedReport}
-            </p>
-          )}
-        </div>
-        {streamFinished && (
-          <div className="mt-2 flex justify-end">
+          <input type="hidden" name="ticker" value={selectedTicker?.Name} />
+          <input
+            type="hidden"
+            name="currency"
+            value={selectedTicker?.Currency}
+          />
+          <input
+            type="hidden"
+            name="startDate"
+            value={date?.from ? date.from.toISOString() : ""}
+          />
+          <input
+            type="hidden"
+            name="endDate"
+            value={date?.to ? date.to.toISOString() : ""}
+          />
+          <div className="mt-40 flex  items-center justify-center space-x-2">
+            <DatePickerWithRange
+              date={date}
+              setDate={setDate}
+              className="w-[300px] cursor-pointer"
+            />
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  className="w-[300px] justify-between"
+                  name="ticker"
+                  value={selectedTicker?.Name}
+                >
+                  {selectedTicker?.Name ? (
+                    <span className="block max-w-[200px] truncate">
+                      {stockData.find(
+                        (ticker: any) => ticker.Name === selectedTicker?.Name
+                      )?.Name || ""}
+                    </span>
+                  ) : (
+                    "Select stock..."
+                  )}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[300px] p-0">
+                <Command>
+                  <CommandInput placeholder="Search stock..." className="h-9" />
+                  <CommandList>
+                    <CommandEmpty>No stock found.</CommandEmpty>
+                    <CommandGroup>
+                      {stockData.map((ticker: any, index: any) => (
+                        <CommandItem
+                          key={index}
+                          value={ticker.Name}
+                          onSelect={() => {
+                            setSelectedTicker(ticker);
+                            setOpen(false);
+                          }}
+                        >
+                          {ticker.Name}
+                          <Check
+                            className={cn(
+                              "ml-auto",
+                              selectedTicker?.Name === ticker.Name
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
             <Button
-              variant="ghost"
-              size="sm"
-              className="cursor-pointer dark:text-gray-200"
-              onClick={() => {
-                fetcher.submit(
-                  {
-                    ticker: selectedTicker?.Name || "",
-                    code: selectedTicker?.Code || "",
-                    exchange: selectedTicker?.Exchange || "",
-                    currency: selectedTicker?.Currency || "",
-                    startDate: date?.from?.toISOString() || "",
-                    endDate: date?.to?.toISOString() || "",
-                  },
-                  { method: "post" }
-                );
-              }}
+              type="submit"
+              variant="outline"
+              size="icon"
+              disabled={!selectedTicker}
+              className="cursor-pointer disabled:cursor-not-allowed"
             >
-              <RotateCcw />
-              Retry
+              <Send />
             </Button>
           </div>
-        )}
+        </fetcher.Form>
+        <div className="">
+          <div className="mt-6 rounded-md border border-slate-200 p-4">
+            {fetcher.state === "submitting" ? (
+              <LoadingDots />
+            ) : (
+              <p className="text-base whitespace-pre-wrap dark:text-gray-200">
+                {streamedReport}
+              </p>
+            )}
+          </div>
+          {streamFinished && (
+            <div className="mt-2 flex justify-end">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="cursor-pointer dark:text-gray-200"
+                onClick={() => {
+                  fetcher.submit(
+                    {
+                      ticker: selectedTicker?.Name || "",
+                      code: selectedTicker?.Code || "",
+                      exchange: selectedTicker?.Exchange || "",
+                      currency: selectedTicker?.Currency || "",
+                      startDate: date?.from?.toISOString() || "",
+                      endDate: date?.to?.toISOString() || "",
+                    },
+                    { method: "post" }
+                  );
+                }}
+              >
+                <RotateCcw />
+                Retry
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
