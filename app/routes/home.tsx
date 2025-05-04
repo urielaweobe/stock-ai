@@ -63,7 +63,6 @@ export async function action({ request }: ActionFunctionArgs) {
       endDate: endDate.slice(0, 10),
     });
     const data = await response.json();
-    console.log(data);
 
     const report = await chat({
       data: JSON.stringify(data),
