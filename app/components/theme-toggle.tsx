@@ -29,7 +29,7 @@ export function ThemeSwitcher({ theme, setTheme }: ThemeSwitcherProps) {
   const renderIcon = (theme: string | undefined) => {
     switch (theme) {
       case "light":
-        return <Sun className="h-4 w-4 text-yellow-500" />;
+        return <Sun color="black" className="h-4 w-4 text-yellow-500" />;
       case "dark":
         return <Moon className="h-4 w-4 text-blue-400" />;
       case "system":
