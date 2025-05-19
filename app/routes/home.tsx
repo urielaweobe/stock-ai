@@ -153,7 +153,7 @@ export default function Home() {
               className="w-[300px] cursor-pointer"
             />
             <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
+              <PopoverTrigger className="cursor-pointer" asChild>
                 <Button
                   variant="outline"
                   role="combobox"
@@ -182,6 +182,7 @@ export default function Home() {
                     <CommandGroup>
                       {stockData.map((ticker: any, index: any) => (
                         <CommandItem
+                        className="cursor-pointer"
                           key={index}
                           value={ticker.Name}
                           onSelect={() => {
