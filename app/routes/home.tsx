@@ -18,11 +18,7 @@ import {
 } from "~/components/ui/command";
 import { cn } from "~/lib/utils";
 import LoadingDots from "./components/LoadingDots";
-import {
-  useActionData,
-  useFetcher,
-  type ActionFunctionArgs,
-} from "react-router";
+import { useFetcher, type ActionFunctionArgs } from "react-router";
 import { chat } from "~/utils/agent";
 import stockData from "~/utils/stock-data.json";
 import type { Ticker } from "~/utils/interface";
@@ -62,10 +58,11 @@ export async function action({ request }: ActionFunctionArgs) {
       startDate: startDate.slice(0, 10),
       endDate: endDate.slice(0, 10),
     });
-    const data = await response.json();
+    const stockHistoricalData = await response.json();
+    console.log(stockHistoricalData);
 
     const report = await chat({
-      data: JSON.stringify(data),
+      data: JSON.stringify(stockHistoricalData),
       code,
       ticker,
       currency,
@@ -73,7 +70,7 @@ export async function action({ request }: ActionFunctionArgs) {
       endDate: endDate.slice(0, 10),
     });
 
-    return { report };
+    return { report, stockHistoricalData };
   } catch (error) {
     console.error(error);
     return Response.json(
@@ -94,6 +91,13 @@ export default function Home() {
     from: subDays(new Date(), 3),
     to: new Date(),
   });
+
+  const stockHistoricalData = fetcher.data?.stockHistoricalData;
+
+  const lastHistoricalStockEntry =
+    stockHistoricalData?.length > 0
+      ? stockHistoricalData[stockHistoricalData?.length - 1]
+      : null;
 
   useEffect(() => {
     if (fetcher.data?.report) {
@@ -169,7 +173,7 @@ export default function Home() {
                       )?.Name || ""}
                     </span>
                   ) : (
-                    "Select stock..."
+                    "Select stock"
                   )}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
@@ -182,7 +186,7 @@ export default function Home() {
                     <CommandGroup>
                       {stockData.map((ticker: any, index: any) => (
                         <CommandItem
-                        className="cursor-pointer"
+                          className="cursor-pointer"
                           key={index}
                           value={ticker.Name}
                           onSelect={() => {
@@ -217,7 +221,45 @@ export default function Home() {
             </Button>
           </div>
         </fetcher.Form>
-        <div className="">
+        <div className="mt-3">
+          <div className="flex justify-between text-center mt-2">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Open (₦) <br />-
+              <br />
+              {lastHistoricalStockEntry?.open
+                ? lastHistoricalStockEntry?.open
+                : "N/A"}
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Close (₦) <br />-
+              <br />
+              {lastHistoricalStockEntry?.close
+                ? lastHistoricalStockEntry?.close
+                : "N/A"}
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Adjusted Close (₦) <br />-
+              <br />
+              {lastHistoricalStockEntry?.adjusted_close
+                ? lastHistoricalStockEntry?.adjusted_close
+                : "N/A"}
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              High (₦) <br />-
+              <br />
+              {lastHistoricalStockEntry?.high
+                ? lastHistoricalStockEntry?.high
+                : "N/A"}
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Low (₦) <br />-
+              <br />
+              {lastHistoricalStockEntry?.low
+                ? lastHistoricalStockEntry?.low
+                : "N/A"}
+            </p>
+          </div>
+
           <div className="mt-6 rounded-md border border-slate-200 p-4">
             {fetcher.state === "submitting" ? (
               <LoadingDots />

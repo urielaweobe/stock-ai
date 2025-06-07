@@ -189,15 +189,6 @@
     "Isin": "NGCAP0000009"
   },
   {
-    "Code": "CAPOIL",
-    "Name": "CAPITAL OIL PLC",
-    "Country": "Nigeria",
-    "Exchange": "XNSA",
-    "Currency": "NGN",
-    "Type": "Common Stock",
-    "Isin": "NGCAPOIL0007"
-  },
-  {
     "Code": "CAVERTON",
     "Name": "CAVERTON OFFSHORE SUPPORT GRP PLC",
     "Country": "Nigeria",
@@ -441,6 +432,15 @@
     "Isin": "NGFBNH000009"
   },
   {
+    "Code": "FTGINSURE",
+    "Name": "FORTIS GLOBAL INSURANCE PLC",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": "NGSTDINSURE7"
+  },
+  {
     "Code": "FTNCOCOA",
     "Name": "FTN COCOA PROCESSORS PLC",
     "Country": "Nigeria",
@@ -466,15 +466,6 @@
     "Currency": "NGN",
     "Type": "Common Stock",
     "Isin": "NGGOLDBREW01"
-  },
-  {
-    "Code": "GOLDINSURE",
-    "Name": "GOLDLINK INSURANCE PLC",
-    "Country": "Nigeria",
-    "Exchange": "XNSA",
-    "Currency": "NGN",
-    "Type": "Common Stock",
-    "Isin": "NGGOLDINSUR8"
   },
   {
     "Code": "GREENWETF",
@@ -639,6 +630,15 @@
     "Isin": "NGLONGMAN007"
   },
   {
+    "Code": "LEGENDINT",
+    "Name": "LEGEND INTERNET",
+    "Country": "Nigeria",
+    "Exchange": "XNSA",
+    "Currency": "NGN",
+    "Type": "Common Stock",
+    "Isin": null
+  },
+  {
     "Code": "LINKASSURE",
     "Name": "LINKAGE ASSURANCE PLC",
     "Country": "Nigeria",
@@ -718,15 +718,6 @@
     "Currency": "NGN",
     "Type": "Common Stock",
     "Isin": "NGMECURE0006"
-  },
-  {
-    "Code": "MEDVIEWAIR",
-    "Name": "MEDVIEW AIRLINE PLC",
-    "Country": "Nigeria",
-    "Exchange": "XNSA",
-    "Currency": "NGN",
-    "Type": "Common Stock",
-    "Isin": "NGMEDVIEW007"
   },
   {
     "Code": "MERGROWTH",
