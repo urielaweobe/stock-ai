@@ -27,6 +27,7 @@ import type { DateRange } from "react-day-picker";
 import { subDays } from "date-fns";
 import { ThemeSwitcher } from "~/components/theme-toggle";
 import { getStoredTheme, type Theme } from "~/utils/theme";
+import { Skeleton } from "~/components/ui/skeleton";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -59,7 +60,6 @@ export async function action({ request }: ActionFunctionArgs) {
       endDate: endDate.slice(0, 10),
     });
     const stockHistoricalData = await response.json();
-    console.log(stockHistoricalData);
 
     const report = await chat({
       data: JSON.stringify(stockHistoricalData),
@@ -120,6 +120,13 @@ export default function Home() {
     }
   }, [fetcher.data]);
   const [theme, setTheme] = useState<Theme>(getStoredTheme);
+
+  const renderStockValue = (value: string | undefined) => {
+    if (fetcher.state === "submitting") {
+      return <Skeleton className="h-5 w-[50px]" />;
+    }
+    return value ?? "N/A";
+  };
 
   return (
     <div className="h-screen">
@@ -222,41 +229,31 @@ export default function Home() {
           </div>
         </fetcher.Form>
         <div className="mt-3">
-          <div className="flex justify-between text-center mt-2">
+          <div className="flex justify-between mt-2 [text-align:-webkit-center]">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Open (₦) <br />-
               <br />
-              {lastHistoricalStockEntry?.open
-                ? lastHistoricalStockEntry?.open
-                : "N/A"}
+              {renderStockValue(lastHistoricalStockEntry?.open)}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Close (₦) <br />-
               <br />
-              {lastHistoricalStockEntry?.close
-                ? lastHistoricalStockEntry?.close
-                : "N/A"}
+              {renderStockValue(lastHistoricalStockEntry?.close)}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Adjusted Close (₦) <br />-
               <br />
-              {lastHistoricalStockEntry?.adjusted_close
-                ? lastHistoricalStockEntry?.adjusted_close
-                : "N/A"}
+              {renderStockValue(lastHistoricalStockEntry?.adjusted_close)}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               High (₦) <br />-
               <br />
-              {lastHistoricalStockEntry?.high
-                ? lastHistoricalStockEntry?.high
-                : "N/A"}
+              {renderStockValue(lastHistoricalStockEntry?.high)}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Low (₦) <br />-
               <br />
-              {lastHistoricalStockEntry?.low
-                ? lastHistoricalStockEntry?.low
-                : "N/A"}
+              {renderStockValue(lastHistoricalStockEntry?.low)}
             </p>
           </div>
 
