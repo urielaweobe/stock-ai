@@ -129,11 +129,11 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen">
+    <div className="h-dvh w-full">
       <div className="flex justify-end pt-3 pr-6">
         <ThemeSwitcher theme={theme} setTheme={setTheme} />
       </div>
-      <div className="mx-auto flex w-[650px] flex-col">
+      <div className="mx-auto flex md:w-[700px] flex-col p-6">
         <fetcher.Form method="post">
           <input type="hidden" name="code" value={selectedTicker?.Code} />
           <input
@@ -157,11 +157,11 @@ export default function Home() {
             name="endDate"
             value={date?.to ? date.to.toISOString() : ""}
           />
-          <div className="mt-40 flex  items-center justify-center space-x-2">
+          <div className="mt-30 flex flex-col md:flex-row items-center justify-center gap-2 w-full">
             <DatePickerWithRange
               date={date}
               setDate={setDate}
-              className="w-[300px] cursor-pointer"
+              className="[width:inherit] cursor-pointer"
             />
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger className="cursor-pointer" asChild>
@@ -169,7 +169,7 @@ export default function Home() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  className="w-[300px] justify-between"
+                  className="md:w-[300px] [width:inherit] justify-between"
                   name="ticker"
                   value={selectedTicker?.Name}
                 >
@@ -185,9 +185,9 @@ export default function Home() {
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[300px] p-0">
+              <PopoverContent className="md:w-[300px] [width:inherit] p-0">
                 <Command>
-                  <CommandInput placeholder="Search stock..." className="h-9" />
+                  <CommandInput placeholder="Search stock..." className="h-9 text-sm" />
                   <CommandList>
                     <CommandEmpty>No stock found.</CommandEmpty>
                     <CommandGroup>
@@ -222,14 +222,14 @@ export default function Home() {
               variant="outline"
               size="icon"
               disabled={!selectedTicker}
-              className="cursor-pointer disabled:cursor-not-allowed"
+              className="cursor-pointer disabled:cursor-not-allowed w-full md:w-[50px]"
             >
               <Send />
             </Button>
           </div>
         </fetcher.Form>
         <div className="mt-3">
-          <div className="flex justify-between mt-2 [text-align:-webkit-center]">
+          <div className="flex justify-between mt-2 [text-align:-webkit-center] md:flex-row">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Open (₦) <br />-
               <br />
