@@ -1,0 +1,8 @@
+name = "stock-ai-worker"
+type = "javascript"
+compatibility_date = "2025-08-01"
+
+[build]
+command = "npm run build"
+upload.format = "modules"
+upload.main = "worker.js"

@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { fetchTickerData } from "~/api/ticker";
+import { fetchReport, fetchTickerData } from "~/api/ticker";
 import { useEffect, useState } from "react";
 import {
   Popover,
@@ -61,7 +61,15 @@ export async function action({ request }: ActionFunctionArgs) {
     });
     const stockHistoricalData = await response.json();
 
-    const report = await chat({
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      return Response.json(
+        { error: errorMessage || "Failed to fetch stock data" },
+        { status: response.status }
+      );
+    }
+
+    const report = await fetchReport({
       data: JSON.stringify(stockHistoricalData),
       code,
       ticker,
@@ -70,9 +78,18 @@ export async function action({ request }: ActionFunctionArgs) {
       endDate: endDate.slice(0, 10),
     });
 
-    return { report, stockHistoricalData };
+    const { content } = await report.json();
+    
+    if (!report.ok) {
+      const errorMessage = await report.text();
+      return Response.json(
+        { error: errorMessage || "Failed to generate report" },
+        { status: report.status }
+      );
+    }
+
+    return { content, stockHistoricalData };
   } catch (error) {
-    console.error(error);
     return Response.json(
       { error: "Failed to generate report" },
       { status: 500 }
@@ -100,8 +117,8 @@ export default function Home() {
       : null;
 
   useEffect(() => {
-    if (fetcher.data?.report) {
-      const fullText = fetcher.data.report.choices[0].message.content as string;
+    if (fetcher.data?.content) {
+      const fullText = fetcher.data.content as string;
       let i = 0;
       const streamText = () => {
         if (i <= fullText.length) {
