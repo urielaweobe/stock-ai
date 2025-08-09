@@ -235,7 +235,7 @@
   },
   {
     "Code": "CONHALLPLC",
-    "Name": "CONSOLIDATED HALLMARK INSURANCE PLC",
+    "Name": "CONSOLIDATED HALLMARK HOLDINGS PLC",
     "Country": "Nigeria",
     "Exchange": "XNSA",
     "Currency": "NGN",
@@ -891,15 +891,6 @@
     "Isin": "NGNNFM000008"
   },
   {
-    "Code": "NOTORE",
-    "Name": "NOTORE CHEMICAL IND PLC",
-    "Country": "Nigeria",
-    "Exchange": "XNSA",
-    "Currency": "NGN",
-    "Type": "Common Stock",
-    "Isin": "NGNOTORE0002"
-  },
-  {
     "Code": "NPFMCRFBK",
     "Name": "NPF MICRO FINANCE BANK PLC",
     "Country": "Nigeria",
@@ -1123,15 +1114,6 @@
     "Currency": "NGN",
     "Type": "ETF",
     "Isin": "NGSTBKETF308"
-  },
-  {
-    "Code": "STDINSURE",
-    "Name": "STANDARD ALLIANCE INSURANCE PLC",
-    "Country": "Nigeria",
-    "Exchange": "XNSA",
-    "Currency": "NGN",
-    "Type": "Common Stock",
-    "Isin": "NG000000STD1"
   },
   {
     "Code": "STERLINGNG",
