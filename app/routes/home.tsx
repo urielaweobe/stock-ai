@@ -79,7 +79,7 @@ export async function action({ request }: ActionFunctionArgs) {
     });
 
     const { content } = await report.json();
-    
+
     if (!report.ok) {
       const errorMessage = await report.text();
       return Response.json(
@@ -139,7 +139,7 @@ export default function Home() {
   const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
   const renderStockValue = (value: string | undefined) => {
-    if (fetcher.state === "submitting") {
+    if (fetcher.state !== "idle") {
       return <Skeleton className="h-5 w-[50px]" />;
     }
     return value ?? "N/A";
@@ -147,10 +147,10 @@ export default function Home() {
 
   return (
     <div className="h-dvh w-full overflow-auto">
-      <div className="flex justify-end py-3 pr-6 sticky top-0 z-50 bg-white dark:bg-gray-900">
+      <header className="flex justify-end py-3 pr-6 sticky top-0 z-50 bg-white dark:bg-gray-900 border-b">
         <ThemeSwitcher theme={theme} setTheme={setTheme} />
-      </div>
-      <div className="mx-auto flex md:w-[700px] flex-col p-6">
+      </header>
+      <main className="mx-auto flex md:w-[700px] flex-col p-6">
         <fetcher.Form method="post">
           <input type="hidden" name="code" value={selectedTicker?.Code} />
           <input
@@ -317,7 +317,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
