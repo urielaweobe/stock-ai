@@ -51,3 +51,10 @@ export const fetchReport = async ({
       endDate,
     }),
   });
+
+const fetchUrl = "https://eodhd-stock-list-api-worker.urielaweobe.workers.dev";
+
+export const fetchStockList = async () =>
+  await fetch(fetchUrl, {
+    method: "GET",
+  });

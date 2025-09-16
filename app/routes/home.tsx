@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { fetchReport, fetchTickerData } from "~/api/ticker";
+import { fetchReport, fetchStockList, fetchTickerData } from "~/api/ticker";
 import { useEffect, useState } from "react";
 import {
   Popover,
@@ -18,9 +18,11 @@ import {
 } from "~/components/ui/command";
 import { cn } from "~/lib/utils";
 import LoadingDots from "./components/LoadingDots";
-import { useFetcher, type ActionFunctionArgs } from "react-router";
-import { chat } from "~/utils/agent";
-import stockData from "~/utils/stock-data.json";
+import {
+  useFetcher,
+  useLoaderData,
+  type ActionFunctionArgs,
+} from "react-router";
 import type { Ticker } from "~/utils/interface";
 import { DatePickerWithRange } from "~/components/ui/date-picker";
 import type { DateRange } from "react-day-picker";
@@ -97,8 +99,25 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 }
 
+export async function loader() {
+  try {
+    const response = await fetchStockList();
+    const stockList = await response.json();
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch stock list");
+    }
+
+    return { stockList };
+  } catch (error) {
+    console.error("Failed to fetch stock list:", error);
+    return { stockList: [] };
+  }
+};
+
 export default function Home() {
   const fetcher = useFetcher();
+  const { stockList } = useLoaderData();
 
   const [open, setOpen] = useState(false);
   const [streamedReport, setStreamedReport] = useState("");
@@ -108,6 +127,7 @@ export default function Home() {
     from: subDays(new Date(), 3),
     to: new Date(),
   });
+  const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
   const stockHistoricalData = fetcher.data?.stockHistoricalData;
 
@@ -136,7 +156,6 @@ export default function Home() {
       setStreamFinished(true);
     }
   }, [fetcher.data]);
-  const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
   const renderStockValue = (value: string | undefined) => {
     if (fetcher.state !== "idle") {
@@ -188,7 +207,7 @@ export default function Home() {
                   >
                     {selectedTicker?.Name ? (
                       <span className="block max-w-[200px] truncate">
-                        {stockData.find(
+                        {stockList.find(
                           (ticker: any) => ticker.Name === selectedTicker?.Name
                         )?.Name || ""}
                       </span>
@@ -207,7 +226,7 @@ export default function Home() {
                     <CommandList>
                       <CommandEmpty>No stock found.</CommandEmpty>
                       <CommandGroup>
-                        {stockData.map((ticker: any, index: any) => (
+                        {stockList.map((ticker: any, index: any) => (
                           <CommandItem
                             className="cursor-pointer"
                             key={index}
