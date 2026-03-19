@@ -9,6 +9,36 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { fetchStockList } from "./api/ticker";
+
+export interface RootLoaderData {
+  stockList: Array<{
+    Name: string;
+    Code: string;
+    Exchange: string;
+    Currency: string;
+  }>;
+}
+
+export async function loader() {
+  try {
+    const response = await fetchStockList();
+    const stockList = await response.json();
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch stock list");
+    }
+
+    return { stockList } satisfies RootLoaderData;
+  } catch (error) {
+    console.error("Failed to fetch stock list:", error);
+    return { stockList: [] } satisfies RootLoaderData;
+  }
+}
+
+export function shouldRevalidate() {
+  return false;
+}
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

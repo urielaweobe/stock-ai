@@ -1,4 +1,4 @@
-import type { FinancialData } from "./../utils/interface";
+import type { ComparisonReportData, FinancialData } from "./../utils/interface";
 // Note to self: The EOD API is not free. You need to sign up for an account and get an API key.
 // The free tier allows you to make 20 requests per day. You can upgrade to a paid plan for more requests.
 // The API key is stored in the .env file as VITE_EOD_API. You can use this key to make requests to the API.
@@ -29,28 +29,20 @@ export const fetchTickerData = async ({
 
 const url = "https://stock-ai-worker.urielaweobe.workers.dev";
 
-export const fetchReport = async ({
-  data,
-  code,
-  ticker,
-  currency,
-  startDate,
-  endDate,
-}: FinancialData) =>
+const requestReport = async (payload: FinancialData | ComparisonReportData) =>
   await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      data,
-      code,
-      ticker,
-      currency,
-      startDate,
-      endDate,
-    }),
+    body: JSON.stringify(payload),
   });
+
+export const fetchReport = async (payload: FinancialData) =>
+  await requestReport(payload);
+
+export const fetchComparisonReport = async (payload: ComparisonReportData) =>
+  await requestReport(payload);
 
 const fetchUrl = "https://eodhd-stock-list-api-worker.urielaweobe.workers.dev";
 
