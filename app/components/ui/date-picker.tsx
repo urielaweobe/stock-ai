@@ -1,18 +1,25 @@
-"use client";
-
 import * as React from "react";
-import { addDays, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import type { DateRange } from "react-day-picker";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
-import { Calendar } from "~/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
+
+const Calendar = React.lazy(async () => {
+  const { Calendar } = await import("./calendar");
+  return { default: Calendar };
+});
+
+const dateFormat = new Intl.DateTimeFormat("en-NG", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
 
 type DatePickerProps = {
   date: DateRange | undefined;
@@ -41,11 +48,11 @@ export function DatePickerWithRange({
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
+                  {dateFormat.format(date.from)} -{" "}
+                  {dateFormat.format(date.to)}
                 </>
               ) : (
-                format(date.from, "LLL dd, y")
+                dateFormat.format(date.from)
               )
             ) : (
               <span>Pick a date</span>
@@ -53,14 +60,16 @@ export function DatePickerWithRange({
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={1}
-            className="md:w-[300px] w-full"
-          />
+          <React.Suspense fallback={<p role="status" className="p-4">Loading calendar…</p>}>
+            <Calendar
+              mode="range"
+              defaultMonth={date?.from}
+              selected={date}
+              onSelect={setDate}
+              numberOfMonths={1}
+              className="md:w-[300px] w-full"
+            />
+          </React.Suspense>
         </PopoverContent>
       </Popover>
     </div>
