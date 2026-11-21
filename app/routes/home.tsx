@@ -1,5 +1,7 @@
 import type { Route } from "./+types/home";
 import { fetchReport, fetchTickerData } from "~/api/ticker";
+import { loadFundamentals } from "~/api/fundamentals.server";
+import { CompanyFundamentals } from "~/components/company-fundamentals";
 import { useState } from "react";
 import {
   Popover,
@@ -62,6 +64,16 @@ export async function action({ request }: ActionFunctionArgs) {
   const exchange = formData.get("exchange");
   const ticker = formData.get("ticker");
   const currency = formData.get("currency");
+  if (formData.get("intent") === "fundamentals") {
+    if (typeof code !== "string" || !/^[a-z0-9_.-]{1,32}$/i.test(code) ||
+        typeof exchange !== "string" || !/^[a-z0-9_-]{1,16}$/i.test(exchange)) {
+      return Response.json({ error: "Select a valid stock." }, { status: 400 });
+    }
+
+    const symbol = `${code}.${exchange}`;
+    return { symbol, ...await loadFundamentals(symbol) };
+  }
+
   const startDate = formData.get("startDate");
   const endDate = formData.get("endDate");
 
@@ -124,6 +136,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function Home() {
   const fetcher = useFetcher<HomeActionData>();
+  const fundamentals = useFetcher<{ symbol?: string } & Awaited<ReturnType<typeof loadFundamentals>>>();
   const rootLoaderData = useRouteLoaderData<RootLoaderData>("root");
   const stockList = rootLoaderData?.stockList ?? [];
   const [open, setOpen] = useState(false);
@@ -136,6 +149,11 @@ export default function Home() {
   const pending = fetcher.state !== "idle";
   const result = pending ? undefined : fetcher.data;
   const prices = result?.latestPrice;
+  const selectedSymbol = selectedTicker && `${selectedTicker.Code}.${selectedTicker.Exchange}`;
+  const fundamentalsPending = fundamentals.state !== "idle";
+  const fundamentalsResult = !fundamentalsPending && fundamentals.data?.symbol === selectedSymbol
+    ? fundamentals.data
+    : undefined;
   const metrics = [
     ["Open", prices?.open],
     ["Close", prices?.close],
@@ -245,6 +263,30 @@ export default function Home() {
             </Button>
           </div>
         </fetcher.Form>
+
+        <section aria-labelledby="company-fundamentals" className="workspace-panel space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 id="company-fundamentals" className="text-xl font-semibold tracking-tight">Company fundamentals</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {selectedTicker
+                  ? `Annual financial results for ${selectedTicker.Name}`
+                  : "Select a stock to review its annual financial results."}
+              </p>
+            </div>
+            <fundamentals.Form method="post">
+              <input type="hidden" name="intent" value="fundamentals" />
+              <input type="hidden" name="code" value={selectedTicker?.Code ?? ""} />
+              <input type="hidden" name="exchange" value={selectedTicker?.Exchange ?? ""} />
+              <Button type="submit" variant="outline" disabled={!selectedTicker || fundamentalsPending}>
+                {fundamentalsPending ? "Loading fundamentals…" : "Load fundamentals"}
+              </Button>
+            </fundamentals.Form>
+          </div>
+          {fundamentalsPending && <p role="status" className="sr-only">Loading company fundamentals</p>}
+          {fundamentalsResult?.error && <p role="status" className="text-sm">{fundamentalsResult.error}</p>}
+          {fundamentalsResult?.annual && <CompanyFundamentals data={fundamentalsResult.annual} />}
+        </section>
 
         {pending && <p role="status" className="workspace-panel">Fetching prices and generating the report…</p>}
 
