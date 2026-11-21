@@ -30,19 +30,19 @@ import { subDays } from "date-fns";
 import { Skeleton } from "~/components/ui/skeleton";
 import { AppHeader } from "~/components/app-header";
 import { ReportContent } from "~/components/report-content";
-import { useStreamedReport } from "~/hooks/use-streamed-report";
+import { formatDate } from "~/utils/dates";
 import type { RootLoaderData } from "~/root";
 
 interface HomeActionData {
   content?: string;
   error?: string;
-  stockHistoricalData?: Array<{
+  latestPrice?: {
     open?: string;
     close?: string;
     adjusted_close?: string;
     high?: string;
     low?: string;
-  }>;
+  } | null;
 }
 
 export function meta({}: Route.MetaArgs) {
@@ -113,7 +113,7 @@ export async function action({ request }: ActionFunctionArgs) {
       );
     }
 
-    return { content: reportPayload.content, stockHistoricalData };
+    return { content: reportPayload.content, latestPrice: stockHistoricalData.at(-1) ?? null };
   } catch (error) {
     return Response.json(
       { error: "Failed to generate report" },
@@ -133,17 +133,8 @@ export default function Home() {
     to: new Date(),
   });
 
-  const stockHistoricalData = fetcher.data?.stockHistoricalData;
-  const lastHistoricalStockEntry =
-    stockHistoricalData && stockHistoricalData.length > 0
-      ? stockHistoricalData[stockHistoricalData.length - 1]
-      : null;
-
-  const { streamedReport, streamFinished } = useStreamedReport({
-    content: fetcher.data?.content,
-    error: fetcher.data?.error,
-    isSubmitting: fetcher.state === "submitting",
-  });
+  const lastHistoricalStockEntry = fetcher.data?.latestPrice;
+  const report = fetcher.data?.content ?? fetcher.data?.error ?? "";
 
   const renderStockValue = (value: string | undefined) => {
     if (fetcher.state !== "idle") {
@@ -174,12 +165,12 @@ export default function Home() {
           <input
             type="hidden"
             name="startDate"
-            value={date?.from ? date.from.toISOString() : ""}
+            value={date?.from ? formatDate(date.from) : ""}
           />
           <input
             type="hidden"
             name="endDate"
-            value={date?.to ? date.to.toISOString() : ""}
+            value={date?.to ? formatDate(date.to) : ""}
           />
           <div className="md:flex items-center justify-center gap-2 w-full">
             <div className="mb-4 md:mb-0">
@@ -294,11 +285,11 @@ export default function Home() {
             {fetcher.state === "submitting" ? (
               <LoadingDots />
             ) : (
-              <ReportContent report={streamedReport} />
+              <ReportContent report={report} />
             )}
           </div>
 
-          {streamFinished && (
+          {fetcher.state === "idle" && report && (
             <div className="mt-2 flex justify-end">
               <Button
                 variant="ghost"
@@ -311,8 +302,8 @@ export default function Home() {
                       code: selectedTicker?.Code || "",
                       exchange: selectedTicker?.Exchange || "",
                       currency: selectedTicker?.Currency || "",
-                      startDate: date?.from?.toISOString() || "",
-                      endDate: date?.to?.toISOString() || "",
+                      startDate: date?.from ? formatDate(date.from) : "",
+                      endDate: date?.to ? formatDate(date.to) : "",
                     },
                     { method: "post" }
                   );

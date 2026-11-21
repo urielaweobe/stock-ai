@@ -21,7 +21,7 @@ export const fetchTickerData = async ({
   endDate,
 }: FetchTickerData) =>
   await fetch(
-    `https://eodhd-api-worker.urielaweobe.workers.dev/?code=${code}&exchange=${exchange}&startDate=${startDate}&endDate=${endDate}`,
+    `https://eodhd-api-worker.urielaweobe.workers.dev/?${new URLSearchParams({ code, exchange, startDate, endDate })}`,
     {
       method: "GET",
     }
