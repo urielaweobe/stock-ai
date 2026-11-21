@@ -5,7 +5,6 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "./ui/select";
 import { Laptop, Moon, Sun } from "lucide-react";
 
@@ -29,7 +28,7 @@ export function ThemeSwitcher({ theme, setTheme }: ThemeSwitcherProps) {
   const renderIcon = (theme: string | undefined) => {
     switch (theme) {
       case "light":
-        return <Sun color="black" className="h-4 w-4 text-yellow-500" />;
+        return <Sun className="h-4 w-4" />;
       case "dark":
         return <Moon className="h-4 w-4 text-blue-400" />;
       case "system":
@@ -44,7 +43,7 @@ export function ThemeSwitcher({ theme, setTheme }: ThemeSwitcherProps) {
       defaultValue={theme}
       onValueChange={(value) => setTheme(value as Theme)}
     >
-      <SelectTrigger className="w-[70px] border-none bg-transparent hover:bg-transparent focus:ring-0 gap-2 rounded-full p-4 bg-none cursor-pointer shadow">
+      <SelectTrigger aria-label={`Theme: ${theme}`} className="h-9 cursor-pointer gap-1 rounded-xl px-2 shadow-none sm:gap-2 sm:px-3">
         {renderIcon(theme)}
       </SelectTrigger>
       <SelectContent>

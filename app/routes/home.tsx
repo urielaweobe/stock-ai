@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { Button } from "~/components/ui/button";
-import { Check, ChevronsUpDown, RotateCcw, Send } from "lucide-react";
+import { ChartCandlestick, Check, ChevronsUpDown, Sparkles } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -17,7 +17,6 @@ import {
   CommandList,
 } from "~/components/ui/command";
 import { cn } from "~/lib/utils";
-import LoadingDots from "./components/LoadingDots";
 import {
   useFetcher,
   useRouteLoaderData,
@@ -28,7 +27,6 @@ import type { Ticker } from "~/utils/interface";
 import { DatePickerWithRange } from "~/components/ui/date-picker";
 import type { DateRange } from "react-day-picker";
 import { subDays } from "date-fns";
-import { Skeleton } from "~/components/ui/skeleton";
 import { AppHeader } from "~/components/app-header";
 import { ReportContent } from "~/components/report-content";
 import { formatDate } from "~/utils/dates";
@@ -37,6 +35,8 @@ import type { RootLoaderData } from "~/root";
 interface HomeActionData {
   content?: string;
   error?: string;
+  currency?: string;
+  ticker?: string;
   latestPrice?: {
     open?: string;
     close?: string;
@@ -113,7 +113,7 @@ export async function action({ request }: ActionFunctionArgs) {
       );
     }
 
-    return { content: reportPayload.content, latestPrice: stockHistoricalData.at(-1) ?? null };
+    return { content: reportPayload.content, currency, ticker, latestPrice: stockHistoricalData.at(-1) ?? null };
   } catch (error) {
     return Response.json(
       { error: "Failed to generate report" },
@@ -133,23 +133,28 @@ export default function Home() {
     to: new Date(),
   });
 
-  const lastHistoricalStockEntry = fetcher.data?.latestPrice;
-  const report = fetcher.data?.content ?? fetcher.data?.error ?? "";
-
-  const renderStockValue = (value: string | undefined) => {
-    if (fetcher.state !== "idle") {
-      return <Skeleton className="h-5 w-[50px]" />;
-    }
-
-    return value ?? "N/A";
-  };
+  const pending = fetcher.state !== "idle";
+  const result = pending ? undefined : fetcher.data;
+  const prices = result?.latestPrice;
+  const metrics = [
+    ["Open", prices?.open],
+    ["Close", prices?.close],
+    ["Adjusted close", prices?.adjusted_close],
+    ["High", prices?.high],
+    ["Low", prices?.low],
+  ] as const;
 
   return (
-    <div className="min-h-dvh w-full overflow-auto bg-white dark:bg-gray-900">
+    <div className="workspace">
       <AppHeader />
 
-      <main className="mx-auto flex w-full max-w-3xl flex-col p-6">
-        <fetcher.Form method="post">
+      <main className="workspace-main">
+        <section className="workspace-intro">
+          <h1>Research a stock</h1>
+          <p>Explore historical prices and get an AI summary of how a Nigerian stock performed over a period you choose.</p>
+        </section>
+
+        <fetcher.Form method="post" className="workspace-panel">
           <input type="hidden" name="code" value={selectedTicker?.Code} />
           <input
             type="hidden"
@@ -172,54 +177,50 @@ export default function Home() {
             name="endDate"
             value={date?.to ? formatDate(date.to) : ""}
           />
-          <div className="md:flex items-center justify-center gap-2 w-full">
-            <div className="mb-4 md:mb-0">
+          <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] md:items-end">
+            <div className="min-w-0 space-y-2">
+              <label htmlFor="research-stock-picker" className="text-sm font-medium">Stock</label>
               <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger className="cursor-pointer w-full" asChild>
                   <Button
+                    id="research-stock-picker"
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="md:w-[300px] justify-between"
-                    name="ticker"
-                    value={selectedTicker?.Name}
+                    className="workspace-field"
+                    disabled={pending}
                   >
-                    {selectedTicker?.Name ? (
-                      <span className="block max-w-[200px] truncate">
-                        {stockList.find(
-                          (ticker: Ticker) => ticker.Name === selectedTicker?.Name
-                        )?.Name || ""}
-                      </span>
-                    ) : (
-                      "Select a stock"
-                    )}
+                    <span className="flex-1 truncate">
+                      {selectedTicker ? `${selectedTicker.Name} (${selectedTicker.Code})` : "Select a stock"}
+                    </span>
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent align="start" className="p-0">
-                  <Command>
+                <PopoverContent align="start" className="w-[min(26rem,calc(100vw-2rem))] p-0">
+                  <Command label="Search by company or ticker">
                     <CommandInput
-                      placeholder="Search stock..."
+                      placeholder="Search by company or ticker"
                       className="h-9 text-sm"
                     />
                     <CommandList>
-                      <CommandEmpty>No stock found.</CommandEmpty>
+                      <CommandEmpty>{stockList.length ? "No matching stocks." : "Stock list unavailable. Reload to try again."}</CommandEmpty>
                       <CommandGroup>
                         {stockList.map((ticker: Ticker) => (
                           <CommandItem
                             className="cursor-pointer"
-                            key={ticker.Code}
-                            value={ticker.Name}
+                            key={`${ticker.Code}.${ticker.Exchange}`}
+                            value={`${ticker.Name} ${ticker.Code} ${ticker.Exchange}`}
                             onSelect={() => {
                               setSelectedTicker(ticker);
                               setOpen(false);
                             }}
                           >
-                            {ticker.Name}
+                            <span className="flex-1">{ticker.Name}</span>
+                            <span className="text-xs text-muted-foreground">{ticker.Code}</span>
                             <Check
                               className={cn(
                                 "ml-auto",
-                                selectedTicker?.Name === ticker.Name
+                                selectedTicker?.Code === ticker.Code && selectedTicker?.Exchange === ticker.Exchange
                                   ? "opacity-100"
                                   : "opacity-0"
                               )}
@@ -233,88 +234,57 @@ export default function Home() {
               </Popover>
             </div>
 
-            <div className="flex justify-between items-center md:space-x-2">
-              <DatePickerWithRange
-                date={date}
-                setDate={setDate}
-                className="cursor-pointer"
-              />
-              <Button
-                type="submit"
-                variant="outline"
-                size="icon"
-                disabled={!selectedTicker}
-                className="cursor-pointer disabled:cursor-not-allowed md:w-[50px]"
-              >
-                <Send />
-              </Button>
-            </div>
+            <fieldset disabled={pending} className="min-w-0">
+              <legend className="mb-2 text-sm font-medium">Date range</legend>
+              <DatePickerWithRange date={date} setDate={setDate} />
+            </fieldset>
+
+            <Button type="submit" disabled={pending || !selectedTicker || !date?.from || !date?.to} className="workspace-primary">
+              <Sparkles aria-hidden="true" />
+              {pending ? "Analyzing…" : result?.error ? "Try again" : "Analyze stock"}
+            </Button>
           </div>
         </fetcher.Form>
 
-        <div className="mt-3">
-          <div className="mt-2 flex justify-between [text-align:-webkit-center] md:flex-row">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Open (₦) <br />-
-              <br />
-              {renderStockValue(lastHistoricalStockEntry?.open)}
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Close (₦) <br />-
-              <br />
-              {renderStockValue(lastHistoricalStockEntry?.close)}
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Adjusted Close (₦) <br />-
-              <br />
-              {renderStockValue(lastHistoricalStockEntry?.adjusted_close)}
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              High (₦) <br />-
-              <br />
-              {renderStockValue(lastHistoricalStockEntry?.high)}
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Low (₦) <br />-
-              <br />
-              {renderStockValue(lastHistoricalStockEntry?.low)}
-            </p>
-          </div>
+        {pending && <p role="status" className="workspace-panel">Fetching prices and generating the report…</p>}
 
-          <div className="mt-6 rounded-md border border-slate-200 p-4 shadow dark:border-slate-800">
-            {fetcher.state === "submitting" ? (
-              <LoadingDots />
-            ) : (
-              <ReportContent report={report} />
-            )}
-          </div>
+        {result?.error && (
+          <p role="alert" className="workspace-panel border-destructive/40">{result.error}</p>
+        )}
 
-          {fetcher.state === "idle" && report && (
-            <div className="mt-2 flex justify-end">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="cursor-pointer dark:text-gray-200"
-                onClick={() => {
-                  fetcher.submit(
-                    {
-                      ticker: selectedTicker?.Name || "",
-                      code: selectedTicker?.Code || "",
-                      exchange: selectedTicker?.Exchange || "",
-                      currency: selectedTicker?.Currency || "",
-                      startDate: date?.from ? formatDate(date.from) : "",
-                      endDate: date?.to ? formatDate(date.to) : "",
-                    },
-                    { method: "post" }
-                  );
-                }}
-              >
-                <RotateCcw />
-                Retry
-              </Button>
+        {prices && (
+          <section aria-labelledby="research-prices" className="workspace-panel space-y-4">
+            <div>
+              <h2 id="research-prices" className="text-xl font-semibold tracking-tight">Price snapshot</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{result.ticker}</p>
             </div>
-          )}
-        </div>
+            <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+              {metrics.map(([label, value]) => (
+                <div key={label} className="rounded-xl border bg-background p-4">
+                  <dt className="text-sm text-muted-foreground">{label}</dt>
+                  <dd className="mt-1 break-words text-lg font-semibold tabular-nums">
+                    {value == null ? "Unavailable" : `${result.currency ?? "NGN"} ${value}`}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+
+        {result?.content && (
+          <section aria-labelledby="research-report" className="workspace-panel">
+            <h2 id="research-report" className="mb-4 text-xl font-semibold tracking-tight">AI analysis</h2>
+            <ReportContent report={result.content} />
+          </section>
+        )}
+
+        {!pending && !result && (
+          <section className="workspace-empty">
+            <ChartCandlestick className="size-6 text-indigo-700 dark:text-indigo-400" aria-hidden="true" />
+            <h2 className="mt-1 font-semibold">Start with a stock</h2>
+            <p className="text-sm text-muted-foreground">Your price snapshot and AI analysis will appear here.</p>
+          </section>
+        )}
       </main>
     </div>
   );

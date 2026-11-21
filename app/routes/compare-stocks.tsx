@@ -3,13 +3,13 @@ import {
   fetchComparisonReport,
   fetchTickerData,
 } from "~/api/ticker";
-import { useState } from "react";
+import { useId, useRef, useState } from "react";
 import {
   useFetcher,
   useRouteLoaderData,
   type ActionFunctionArgs,
 } from "react-router";
-import { Check, ChevronsUpDown, X } from "lucide-react";
+import { Check, ChevronsUpDown, GitCompareArrows, RotateCcw, Sparkles, X } from "lucide-react";
 import type { DateRange } from "react-day-picker";
 import { subDays } from "date-fns";
 import {
@@ -27,7 +27,6 @@ import {
   CommandList,
 } from "~/components/ui/command";
 import { DatePickerWithRange } from "~/components/ui/date-picker";
-import LoadingDots from "./components/LoadingDots";
 import { AppHeader } from "~/components/app-header";
 import { ReportContent } from "~/components/report-content";
 import { formatDate } from "~/utils/dates";
@@ -254,18 +253,32 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function CompareStocks() {
-  const fetcher = useFetcher<CompareStocksActionData>();
+  const formId = useId();
+  const [resetCount, setResetCount] = useState(0);
+  const fetcher = useFetcher<CompareStocksActionData>({ key: `${formId}-${resetCount}` });
+  const stockPicker = useRef<HTMLButtonElement>(null);
   const rootLoaderData = useRouteLoaderData<RootLoaderData>("root");
   const stockList = rootLoaderData?.stockList ?? [];
   const [open, setOpen] = useState(false);
   const [selectedTickers, setSelectedTickers] = useState<Ticker[]>([]);
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: subDays(new Date(), 14),
-    to: new Date(),
+  const [defaultDate] = useState<DateRange>(() => {
+    const today = new Date();
+    return { from: subDays(today, 14), to: today };
   });
+  const [date, setDate] = useState<DateRange | undefined>(defaultDate);
 
   const pending = fetcher.state !== "idle";
   const result = pending ? undefined : fetcher.data;
+  const dateChanged = date?.from?.getTime() !== defaultDate.from?.getTime() ||
+    date?.to?.getTime() !== defaultDate.to?.getTime();
+
+  function clearComparison() {
+    setSelectedTickers([]);
+    setDate(defaultDate);
+    setOpen(false);
+    setResetCount((count) => count + 1);
+    stockPicker.current?.focus();
+  }
 
   const toggleTicker = (ticker: Ticker) => {
     setSelectedTickers((currentTickers) => {
@@ -284,20 +297,16 @@ export default function CompareStocks() {
   };
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="workspace">
       <AppHeader />
 
-      <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-12">
-        <section className="rounded-3xl border border-emerald-900/30 bg-emerald-950 px-6 py-8 text-emerald-50 sm:px-10 sm:py-12">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-            Compare stocks
-          </h1>
-          <p className="mt-3 max-w-xl text-base leading-relaxed text-emerald-100/85">
-            See how selected stocks performed over the same period and get an AI analysis of their performance and risk.
-          </p>
+      <main className="workspace-main">
+        <section className="workspace-intro">
+          <h1>Compare stocks</h1>
+          <p>Put two or more stocks side by side to see how their prices moved over the same period.</p>
         </section>
 
-        <fetcher.Form method="post" className="space-y-5 rounded-2xl border bg-card p-5 text-card-foreground sm:p-6">
+        <fetcher.Form method="post" className="workspace-panel space-y-5">
           <input
             type="hidden"
             name="selectedTickers"
@@ -314,70 +323,70 @@ export default function CompareStocks() {
             value={date?.to ? formatDate(date.to) : ""}
           />
 
-          <div className="space-y-2">
-            <label htmlFor="compare-stock-picker" className="text-sm font-medium">Stocks</label>
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  id="compare-stock-picker"
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={open}
-                  className="w-full justify-between"
-                >
-                  <span className="truncate">
-                    {selectedTickers.length > 0
-                      ? `${selectedTickers.length} stock${
-                          selectedTickers.length > 1 ? "s" : ""
-                        } selected`
-                      : "Search and select at least two stocks"}
-                  </span>
-                  <ChevronsUpDown className="opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent align="start" className="w-[min(24rem,calc(100vw-2rem))] p-0">
-                <Command label="Search by company or ticker">
-                  <CommandInput
-                    placeholder="Search by company or ticker"
-                    className="h-9 text-sm"
-                  />
-                  <CommandList>
-                    <CommandEmpty>No stock found.</CommandEmpty>
-                    <CommandGroup>
-                      {stockList.map((ticker: Ticker) => {
-                        const isSelected = selectedTickers.some(
-                          (selectedTicker) => tickerKey(selectedTicker) === tickerKey(ticker)
-                        );
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="min-w-0 space-y-2">
+              <label htmlFor="compare-stock-picker" className="text-sm font-medium">Stocks</label>
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    id="compare-stock-picker"
+                    ref={stockPicker}
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="workspace-field"
+                  >
+                    <span className="flex-1 truncate">
+                      {selectedTickers.length
+                        ? `${selectedTickers.length} selected`
+                        : "Select at least two stocks"}
+                    </span>
+                    <ChevronsUpDown className="opacity-50" aria-hidden="true" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="start" className="w-[min(26rem,calc(100vw-2rem))] p-0">
+                  <Command label="Search by company or ticker">
+                    <CommandInput placeholder="Search by company or ticker" />
+                    <CommandList>
+                      <CommandEmpty>
+                        {stockList.length ? "No matching stocks." : "Stock list unavailable. Reload to try again."}
+                      </CommandEmpty>
+                      <CommandGroup>
+                        {stockList.map((ticker) => {
+                          const isSelected = selectedTickers.some(
+                            (selectedTicker) => tickerKey(selectedTicker) === tickerKey(ticker)
+                          );
 
-                        return (
-                          <CommandItem
-                            key={tickerKey(ticker)}
-                            className="cursor-pointer"
-                            value={`${ticker.Name} ${tickerKey(ticker)}`}
-                            onSelect={() => {
-                              toggleTicker(ticker);
-                            }}
-                          >
-                            <div className="flex flex-col">
-                              <span>{ticker.Name}</span>
-                              <span className="text-xs text-muted-foreground">
-                                {ticker.Code} - {ticker.Exchange}
-                              </span>
-                            </div>
-                            <Check
-                              className={cn(
-                                "ml-auto",
-                                isSelected ? "opacity-100" : "opacity-0"
+                          return (
+                            <CommandItem
+                              key={tickerKey(ticker)}
+                              className="cursor-pointer"
+                              value={`${ticker.Name} ${tickerKey(ticker)}`}
+                              onSelect={() => toggleTicker(ticker)}
+                            >
+                              <div className="flex flex-1 flex-col">
+                                <span>{ticker.Name}</span>
+                                <span className="text-xs text-muted-foreground">{tickerKey(ticker)}</span>
+                              </div>
+                              {isSelected && (
+                                <>
+                                  <span className="sr-only">Added to comparison</span>
+                                  <Check aria-hidden="true" />
+                                </>
                               )}
-                            />
-                          </CommandItem>
-                        );
-                      })}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
+                            </CommandItem>
+                          );
+                        })}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
+            <fieldset className="min-w-0">
+              <legend className="mb-2 text-sm font-medium">Date range</legend>
+              <DatePickerWithRange date={date} setDate={setDate} />
+            </fieldset>
           </div>
 
           {selectedTickers.length > 0 && (
@@ -388,7 +397,7 @@ export default function CompareStocks() {
                   type="button"
                   onClick={() => toggleTicker(ticker)}
                   aria-label={`Remove ${ticker.Name}`}
-                  className="inline-flex max-w-full items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                  className="inline-flex max-w-full cursor-pointer items-center gap-2 rounded-lg border bg-muted px-3 py-1.5 text-sm transition-colors hover:bg-accent"
                 >
                   <span className="truncate">
                     {ticker.Name} ({ticker.Code})
@@ -399,33 +408,36 @@ export default function CompareStocks() {
             </div>
           )}
 
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <fieldset className="min-w-0">
-              <legend className="mb-2 text-sm font-medium">Date range</legend>
-              <DatePickerWithRange date={date} setDate={setDate} />
-            </fieldset>
-
+          <div className="flex flex-wrap items-center justify-end gap-2 border-t pt-4">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={clearComparison}
+              disabled={!selectedTickers.length && !dateChanged && !fetcher.data && !pending}
+              className="h-11 rounded-xl"
+            >
+              <RotateCcw aria-hidden="true" />
+              Clear
+            </Button>
             <Button
               type="submit"
-              disabled={
-                pending || selectedTickers.length < 2 || !date?.from || !date?.to
-              }
-              className="cursor-pointer bg-emerald-700 text-white hover:bg-emerald-800"
+              disabled={pending || selectedTickers.length < 2 || !date?.from || !date?.to}
+              className="workspace-primary"
             >
+              <Sparkles aria-hidden="true" />
               {pending ? "Comparing…" : "Compare stocks"}
             </Button>
           </div>
         </fetcher.Form>
 
         {pending && (
-          <div role="status" className="flex items-center gap-3 rounded-2xl border p-5">
-            <span>Fetching prices and generating the report</span>
-            <LoadingDots />
+          <div role="status" className="workspace-panel">
+            Fetching prices and generating the report…
           </div>
         )}
 
         {result?.error && (
-          <p role="alert" className="rounded-2xl border border-destructive/40 p-5">
+          <p role="alert" className="workspace-panel border-destructive/40">
             {result.error}
           </p>
         )}
@@ -440,8 +452,8 @@ export default function CompareStocks() {
             </div>
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {result.results.map(({ ticker, close, change, adjusted }) => (
-                <li key={tickerKey(ticker)} className="rounded-2xl border bg-card p-5 text-card-foreground">
-                  <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                <li key={tickerKey(ticker)} className="workspace-panel">
+                  <p className="font-mono text-sm font-semibold text-indigo-700 dark:text-indigo-400">
                     {tickerKey(ticker)}
                   </p>
                   <h3 className="mt-1 font-semibold">{ticker.Name}</h3>
@@ -472,9 +484,16 @@ export default function CompareStocks() {
         )}
 
         {result?.content && (
-          <section aria-labelledby="comparison-report" className="rounded-2xl border bg-card p-5 text-card-foreground sm:p-6">
+          <section aria-labelledby="comparison-report" className="workspace-panel">
             <h2 id="comparison-report" className="mb-4 text-2xl font-semibold tracking-tight">AI analysis</h2>
             <ReportContent report={result.content} />
+          </section>
+        )}
+        {!pending && !result && (
+          <section className="workspace-empty">
+            <GitCompareArrows className="size-6 text-indigo-700 dark:text-indigo-400" aria-hidden="true" />
+            <h2 className="mt-1 font-semibold">Start a comparison</h2>
+            <p className="text-sm text-muted-foreground">Your price comparison and AI analysis will appear here.</p>
           </section>
         )}
       </main>

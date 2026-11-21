@@ -37,20 +37,16 @@ export function DatePickerWithRange({
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            id="date"
             variant={"outline"}
             className={cn(
-              "md:w-[300px] justify-start text-left font-normal cursor-pointer",
+              "workspace-field cursor-pointer font-normal",
               !date && "text-muted-foreground"
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date?.from ? (
               date.to ? (
-                <>
-                  {dateFormat.format(date.from)} -{" "}
-                  {dateFormat.format(date.to)}
-                </>
+                dateFormat.formatRange(date.from, date.to)
               ) : (
                 dateFormat.format(date.from)
               )
