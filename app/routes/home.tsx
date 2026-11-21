@@ -22,6 +22,7 @@ import {
   useFetcher,
   useRouteLoaderData,
   type ActionFunctionArgs,
+  type ShouldRevalidateFunction,
 } from "react-router";
 import type { Ticker } from "~/utils/interface";
 import { DatePickerWithRange } from "~/components/ui/date-picker";
@@ -82,8 +83,6 @@ export async function action({ request }: ActionFunctionArgs) {
       startDate: startDate.slice(0, 10),
       endDate: endDate.slice(0, 10),
     });
-    const stockHistoricalData = await response.json();
-
     if (!response.ok) {
       return Response.json(
         { error: "Failed to fetch stock data" },
@@ -91,6 +90,7 @@ export async function action({ request }: ActionFunctionArgs) {
       );
     }
 
+    const stockHistoricalData = await response.json();
     const report = await fetchReport({
       data: JSON.stringify(stockHistoricalData),
       code,
@@ -99,9 +99,9 @@ export async function action({ request }: ActionFunctionArgs) {
       startDate: startDate.slice(0, 10),
       endDate: endDate.slice(0, 10),
     });
-    const reportPayload = await report.json();
+    const reportPayload = await report.json().catch(() => null);
 
-    if (!report.ok) {
+    if (!report.ok || typeof reportPayload?.content !== "string") {
       return Response.json(
         {
           error:
@@ -109,7 +109,7 @@ export async function action({ request }: ActionFunctionArgs) {
               ? reportPayload.error
               : "Failed to generate report",
         },
-        { status: report.status }
+        { status: report.ok ? 502 : report.status }
       );
     }
 
