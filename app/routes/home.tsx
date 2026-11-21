@@ -392,7 +392,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-dvh w-full overflow-auto">
+    <div className="h-dvh w-full overflow-auto bg-white dark:bg-gray-900">
       <header className="flex justify-end py-3 pr-6 sticky top-0 z-50 bg-white dark:bg-gray-900 border-b">
         <ThemeSwitcher theme={theme} setTheme={setTheme} />
       </header>
