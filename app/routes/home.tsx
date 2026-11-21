@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
 import { fetchReport, fetchStockList, fetchTickerData } from "~/api/ticker";
-import { Fragment, useEffect, useState, type ReactNode } from "react";
+import { Fragment, useMemo, useState, type ReactNode } from "react";
 import {
   Popover,
   PopoverContent,
@@ -22,6 +22,7 @@ import {
   useFetcher,
   useLoaderData,
   type ActionFunctionArgs,
+  type ShouldRevalidateFunction,
 } from "react-router";
 import type { Ticker } from "~/utils/interface";
 import { DatePickerWithRange } from "~/components/ui/date-picker";
@@ -270,8 +271,6 @@ export async function action({ request }: ActionFunctionArgs) {
       startDate: startDate.slice(0, 10),
       endDate: endDate.slice(0, 10),
     });
-    const stockHistoricalData = await response.json();
-
     if (!response.ok) {
       const errorMessage = await response.text();
       return Response.json(
@@ -280,6 +279,7 @@ export async function action({ request }: ActionFunctionArgs) {
       );
     }
 
+    const stockHistoricalData = await response.json();
     const report = await fetchReport({
       data: JSON.stringify(stockHistoricalData),
       code,
@@ -289,8 +289,6 @@ export async function action({ request }: ActionFunctionArgs) {
       endDate: endDate.slice(0, 10),
     });
 
-    const { content } = await report.json();
-
     if (!report.ok) {
       const errorMessage = await report.text();
       return Response.json(
@@ -299,7 +297,8 @@ export async function action({ request }: ActionFunctionArgs) {
       );
     }
 
-    return { content, stockHistoricalData };
+    const { content } = await report.json();
+    return { content, latestPrice: stockHistoricalData.at(-1) ?? null };
   } catch (error) {
     return Response.json(
       { error: "Failed to generate report" },
@@ -307,6 +306,11 @@ export async function action({ request }: ActionFunctionArgs) {
     );
   }
 }
+
+export const shouldRevalidate: ShouldRevalidateFunction = ({
+  formMethod,
+  defaultShouldRevalidate,
+}) => formMethod?.toUpperCase() === "POST" ? false : defaultShouldRevalidate;
 
 export async function loader() {
   try {
@@ -329,60 +333,16 @@ export default function Home() {
   const { stockList } = useLoaderData();
 
   const [open, setOpen] = useState(false);
-  const [streamedReport, setStreamedReport] = useState("");
   const [selectedTicker, setSelectedTicker] = useState<Ticker | undefined>();
-  const [streamFinished, setStreamFinished] = useState(false);
   const [date, setDate] = useState<DateRange | undefined>({
     from: subDays(new Date(), 3),
     to: new Date(),
   });
   const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
-  const stockHistoricalData = fetcher.data?.stockHistoricalData;
-
-  const lastHistoricalStockEntry =
-    stockHistoricalData?.length > 0
-      ? stockHistoricalData[stockHistoricalData?.length - 1]
-      : null;
-
-  const formattedReport = renderReportContent(streamedReport);
-
-  useEffect(() => {
-    if (fetcher.state === "submitting") {
-      setStreamedReport("");
-      setStreamFinished(false);
-    }
-  }, [fetcher.state]);
-
-  useEffect(() => {
-    if (fetcher.data?.content) {
-      const fullText = fetcher.data.content as string;
-      let i = 0;
-      let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-      const streamText = () => {
-        if (i <= fullText.length) {
-          setStreamedReport(fullText.slice(0, i));
-          if (i === fullText.length) {
-            setStreamFinished(true);
-          }
-          i++;
-          timeoutId = setTimeout(streamText, 10);
-        }
-      };
-
-      streamText();
-
-      return () => {
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-        }
-      };
-    } else if (fetcher.data?.error) {
-      setStreamedReport(fetcher.data.error);
-      setStreamFinished(true);
-    }
-  }, [fetcher.data]);
+  const lastHistoricalStockEntry = fetcher.data?.latestPrice;
+  const report = fetcher.data?.content ?? fetcher.data?.error ?? "";
+  const formattedReport = useMemo(() => renderReportContent(report), [report]);
 
   const renderStockValue = (value: string | undefined) => {
     if (fetcher.state !== "idle") {
@@ -537,7 +497,7 @@ export default function Home() {
               </div>
             )}
           </div>
-          {streamFinished && (
+          {fetcher.state === "idle" && report && (
             <div className="mt-2 flex justify-end">
               <Button
                 variant="ghost"
