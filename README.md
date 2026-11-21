@@ -34,6 +34,17 @@ npm run dev
 
 Your application will be available at `http://localhost:5173`.
 
+### Company fundamentals
+
+Set `EODHD_FUNDAMENTALS_API_KEY` in the server environment using a token with
+access to the EODHD Fundamentals API. For local development, export the
+variable in the shell before running `npm run dev`.
+
+On the Research page, select a stock and click **Load fundamentals**. The
+app compares the latest annual financials with the previous comparable fiscal
+year when available. Coverage varies by ticker. The price report can still
+run when fundamentals are unavailable.
+
 ## Building for Production
 
 Create a production build:
