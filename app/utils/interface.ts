@@ -26,3 +26,8 @@ export interface FinancialData {
   startDate: string;
   endDate: string;
 }
+
+export interface ComparisonReportData extends FinancialData {
+  reportType: "comparison";
+  comparisonTickers: Ticker[];
+}
