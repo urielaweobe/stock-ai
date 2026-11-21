@@ -145,7 +145,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-dvh w-full overflow-auto">
+    <div className="min-h-dvh w-full overflow-auto bg-white dark:bg-gray-900">
       <AppHeader />
 
       <main className="mx-auto flex w-full max-w-3xl flex-col p-6">
